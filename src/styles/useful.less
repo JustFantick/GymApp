@@ -1,0 +1,8 @@
+//Adaptive value
+#adapt(@pcSize, @mobSize, @dependWidth: 1920) {
+	@sizeDiff: @pcSize - @mobSize;
+	@value: calc(@mobSize * 1px + (@pcSize - @mobSize) * ((100vw - 320px) / (@dependWidth - 320)));
+}
+
+//colors
+//@green: #367848;
