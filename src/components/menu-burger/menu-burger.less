@@ -1,0 +1,34 @@
+@import url('../../styles/useful');
+
+.menu-burger {
+	width: 40px;
+	height: 30px;
+	position: relative;
+
+	&__topline,
+	&__midline,
+	&__botline {
+		content: '';
+		position: absolute;
+		right: 0;
+
+		width: 100%;
+		height: 3px;
+		background-color: @green;
+		border-radius: 5px;
+	}
+
+	&__topline {
+		bottom: 100%;
+		transform: translate(0, 100%);
+	}
+
+	&__midline {
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+
+	&__botline {
+		bottom: 0;
+	}
+}
