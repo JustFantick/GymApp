@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './header.less';
 
 import { motion } from 'framer-motion';
@@ -10,9 +10,15 @@ export default function Header() {
 	const [menuStatus, setMenuStatus] = useState(false);
 	const menuOnClick = () => setMenuStatus(!menuStatus);
 
+	const headerBody = useRef(null);
+	const headerContainer = useRef(null);
+	useEffect(() => {
+		headerContainer.current.style.height = headerBody.current.clientHeight + 'px';
+	}, []);
+
 	return (
-		<header className='header'>
-			<motion.div className="header__body header-body"
+		<header className='header' ref={headerContainer}>
+			<motion.div className="header__body header-body" ref={headerBody}
 				onClick={menuOnClick}
 				initial="disabled"
 				animate={menuStatus ? "enabled" : "disabled"}
