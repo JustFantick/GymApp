@@ -1,12 +1,26 @@
 @import url('../../styles/useful');
 
 .visitor-cart {
-	background-color: @green;
 	border-radius: @border-radius;
 	padding: 15px 20px;
 
+	&.green {
+		background-color: @green;
+
+		.visitor-cart__name {
+			color: @gray;
+		}
+	}
+
+	&.light {
+		background-color: @gray;
+
+		.visitor-cart__name {
+			color: @dark-text;
+		}
+	}
+
 	&__name {
-		color: @gray;
 		font-size: 20px;
 		font-style: normal;
 		font-weight: 400;
