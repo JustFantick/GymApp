@@ -1,9 +1,9 @@
 import React from 'react';
-import './home.less';
-import PageContainer from '../page-container/page-container.jsx';
-import HourSchedule from '../hour-schedule/hour-schedule.jsx';
+import './home.page.less';
+import PageContainer from '../../components/page-container/page-container.jsx';
+import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
 
-export default function Home() {
+export default function HomePage() {
 	const date = new Date();
 	const weekDaysArr = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота', 'Неділя'];
 
