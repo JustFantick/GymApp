@@ -3,9 +3,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './layout.jsx';
 import HomePage from './HomePage/home.page.jsx';
 
+export const homePath = "/",
+	visitorsPath = "/visitors",
+	registrationPath = "/registration",
+	calendarPath = "/calendar";
+
 export const router = createBrowserRouter([
 	{
-		path: "/",
+		path: homePath,
 		element: <Layout />,
 		children: [
 			{
