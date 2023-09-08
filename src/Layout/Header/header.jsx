@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { MotionMenuBurger } from '../../components/menu-burger/menu-burger.jsx';
 import { MotionNavigation } from '../../components/navigation/navigation.jsx';
 import { burgerAnim, headerTitleAnim, navigationAnim } from '../../motionConsts/motionConsts';
+import { homePath, visitorsPath, registrationPath, calendarPath } from '../../Layout/routing.jsx';
 
 export default function Header() {
 	const [menuStatus, setMenuStatus] = useState(false);
@@ -16,6 +17,23 @@ export default function Header() {
 		headerContainer.current.style.height = headerBody.current.clientHeight + 'px';
 	}, []);
 
+	const [navItems, setNavItems] = useState([
+		{ text: 'Головна ', isCurrent: true, linkUrl: homePath },
+		{ text: 'Відвідувачі ', isCurrent: false, linkUrl: visitorsPath },
+		{ text: 'Реєстрація ', isCurrent: false, linkUrl: registrationPath },
+		{ text: 'Календар ', isCurrent: false, linkUrl: calendarPath },
+	]);
+	function updateNavItems(itemId) {
+		setNavItems(navItems.map((item, id) => {
+			if (id === itemId) {
+				item.isCurrent = true;
+			} else {
+				item.isCurrent = false;
+			}
+			return item;
+		}));
+	}
+
 	return (
 		<header className='header' ref={headerContainer}>
 			<motion.div className="header__body header-body" ref={headerBody}
@@ -25,13 +43,13 @@ export default function Header() {
 			>
 				<div className="header-body__top-section">
 					<motion.h1 className="header__title main-title" variants={headerTitleAnim}>
-						Головна
+						{navItems.filter(item => item.isCurrent === true)[0].text}
 					</motion.h1>
 
 					<MotionMenuBurger variants={burgerAnim} />
 				</div>
 
-				<MotionNavigation variants={navigationAnim} />
+				<MotionNavigation variants={navigationAnim} navItems={navItems} updateNavItems={updateNavItems} />
 
 			</motion.div>
 
