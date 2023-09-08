@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './layout.jsx';
 import HomePage from './HomePage/home.page.jsx';
+import VisitorsPage from './VisitorsPage/visitors.page.jsx';
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
 				element: <HomePage />,
 				index: true,
 			},
+			{
+				path: visitorsPath,
+				element: <VisitorsPage />,
+			}
 		]
 	}
 ]);
