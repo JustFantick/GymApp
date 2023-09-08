@@ -5,6 +5,7 @@ import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
 import { useVisitorsStore } from '../../store/store.js';
 import PopupContainer from '../../components/popup-container/popup-container.jsx';
 import VisitorCart from '../../components/visitor-cart/visitor-cart.jsx';
+import { SectionTitle } from '../../components/section-title/section-title.jsx';
 
 export default function HomePage() {
 	const date = new Date();
@@ -28,9 +29,9 @@ export default function HomePage() {
 		<main className='home'>
 			<PageContainer>
 				<div className="home__body">
-					<h2 className="page-title">
+					<SectionTitle>
 						{`${weekDaysArr[date.getDay() - 1]}, ${date.getDate()}`}
-					</h2>
+					</SectionTitle>
 
 					{
 						hoursArr.map((hour, id) => (
