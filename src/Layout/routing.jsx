@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Layout } from './layout.jsx';
 import HomePage from './HomePage/home.page.jsx';
 import VisitorsPage from './VisitorsPage/visitors.page.jsx';
+import RegistrationPage from './RegistrationPage/registration.page.jsx';
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
@@ -21,7 +22,11 @@ export const router = createBrowserRouter([
 			{
 				path: visitorsPath,
 				element: <VisitorsPage />,
-			}
+			},
+			{
+				path: registrationPath,
+				element: <RegistrationPage />,
+			},
 		]
 	}
 ]);
