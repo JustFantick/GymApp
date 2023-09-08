@@ -22,7 +22,7 @@ export default function HomePage() {
 		return todayVisitors.filter(el => el.schedule[0].specifiedTime === hour);
 	}
 
-	const [isPopupOpen, setIsPopupOpen] = useState(true);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	return (
 		<main className='home'>
