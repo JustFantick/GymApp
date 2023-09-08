@@ -1,0 +1,33 @@
+@import url('../../styles/useful');
+
+.schedule-day {
+	width: 150px;
+	padding: 20px;
+	background-color: @green;
+	border-radius: @border-radius;
+
+	&__label,
+	&__time {
+		color: @gray;
+	}
+
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	&__label {
+		font-size: 24px;
+	}
+
+	&__time {
+		font-family: "Space Grotesk";
+		font-size: 28px;
+	}
+
+	opacity: 0.65;
+	transition: opacity 0.3s ease;
+
+	&[data-isactive=true] {
+		opacity: 1;
+	}
+}
