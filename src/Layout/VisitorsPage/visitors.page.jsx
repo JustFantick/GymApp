@@ -14,9 +14,11 @@ export default function VisitorsPage() {
 
 			<PageContainer>
 				<div className="visitors__list">
-					{visitorsList.map((li, id) => (
-						<VisitorCart key={id} name={li.name} minimized={true} />
-					))}
+					{
+						visitorsList.map((li, id) => (
+							<VisitorCart key={id} name={li.name} />
+						))
+					}
 				</div>
 			</PageContainer>
 
