@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import { Layout } from './layout.jsx';
 import HomePage from './HomePage/home.page.jsx';
 import VisitorsPage from './VisitorsPage/visitors.page.jsx';
@@ -11,7 +11,7 @@ export const homePath = "/",
 	registrationPath = "/registration",
 	calendarPath = "/calendar";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
 	{
 		path: homePath,
 		element: <Layout />,
