@@ -5,7 +5,7 @@ import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 
 export default function VisitorCart({ name, subscriptionCounter = null, theme = "green" }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const expiringStatus = subscriptionCounter === 0 ? 'expired-subscription' : '';
+	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
 	const subscriptionCounterBlock =
 		<>
