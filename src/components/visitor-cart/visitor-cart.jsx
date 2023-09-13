@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import './visitor-cart.less';
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 
-export default function VisitorCart({ name, subscriptionCounter = null, theme = "green" }) {
+export default function VisitorCart(
+	{ name, subscriptionCounter, theme = "green", showSubscriptionCounter = true }
+) {
 	const [isOpen, setIsOpen] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
@@ -41,11 +43,7 @@ export default function VisitorCart({ name, subscriptionCounter = null, theme = 
 		>
 			<div className="visitor-cart__name">{name}</div>
 
-			{
-				//When "subscriptionCounter" unset by props
-				//dont show "subscriptionCounter" and "slider"
-				!(subscriptionCounter === null) && subscriptionCounterBlock
-			}
+			{showSubscriptionCounter && subscriptionCounterBlock}
 
 		</motion.div>
 	)
