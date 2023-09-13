@@ -26,8 +26,10 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
+    "@mui/x-date-pickers": "^6.13.0",
     "framer-motion": "^10.15.0",
     "immer": "^10.0.2",
+    "moment": "^2.29.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.15.0",
