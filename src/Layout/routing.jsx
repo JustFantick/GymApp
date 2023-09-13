@@ -5,6 +5,7 @@ import HomePage from './HomePage/home.page.jsx';
 import VisitorsPage from './VisitorsPage/visitors.page.jsx';
 import RegistrationPage from './RegistrationPage/registration.page.jsx';
 import ErrorPage from './ErrorPage/error.page.jsx';
+import CalendarPage from './CalendarPage/calendar.page.jsx';
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
@@ -29,6 +30,10 @@ export const router = createHashRouter([
 				path: registrationPath,
 				element: <RegistrationPage />,
 			},
+			{
+				path: calendarPath,
+				element: <CalendarPage />
+			}
 		]
 	}
 ]);
