@@ -131,3 +131,6 @@ dist
 
 # .vscode settings
 .vscode
+
+# .docs
+docs/
