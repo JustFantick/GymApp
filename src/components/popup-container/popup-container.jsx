@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './popup-container.less';
 import { motion } from 'framer-motion';
 
-export default function PopupContainer({ children, isOpen, setIsOpen }) {
+export default function PopupContainer({ children, isOpen, closePopup }) {
+	function bodyClickHandler(e) {
+		if (!e.target.closest('.popup__body')) {
+			closePopup();
+		}
+	}
 	return (
 		<motion.div className='popup'
-			onClick={() => setIsOpen(!isOpen)}
+			onClick={bodyClickHandler}
 			data-isopen={isOpen} layout
 		>
 			<motion.div className="popup__body"
