@@ -43,6 +43,8 @@ export default function RegistrationPage() {
 		},
 	]);
 
+	const [subscription, setSubscription] = useState(4);
+
 	return (
 		<PageContainer>
 			<form className='registration'>
@@ -50,7 +52,12 @@ export default function RegistrationPage() {
 					<SectionTitle>Заповніть поля вводу</SectionTitle>
 
 					<InputName ref={nameRef} />
-					<InputSubscription ref={subscriptionRef} />
+					<InputSubscription
+						value={subscription}
+						setValue={setSubscription}
+						openPopup={() => setIsPopupOpen(true)}
+						ref={subscriptionRef}
+					/>
 				</div>
 
 				<div className="registration__section">
