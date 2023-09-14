@@ -1,0 +1,58 @@
+@import url('../../styles/useful');
+
+.digital-counter {
+	background-color: @gray;
+	border-radius: @border-radius;
+	overflow: hidden;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&__minus,
+	&__value,
+	&__plus {
+		line-height: 1;
+		font-size: 55px;
+		color: @dark-text;
+		font-weight: 400;
+	}
+
+	&__value {
+		padding: 15px 20px;
+		width: 95px;
+		text-align: center;
+
+		position: relative;
+
+		// border-left: 3px solid @dark-text;
+		// border-right: 3px solid @dark-text;
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			height: 75%;
+			width: 3px;
+			border-radius: 5px;
+			background-color: @dark-text;
+		}
+
+		&::before {
+			left: 0;
+		}
+
+		&::after {
+			right: 0;
+		}
+	}
+
+	&__minus,
+	&__plus {
+		width: 70px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
