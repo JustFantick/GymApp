@@ -6,13 +6,12 @@ import { InputName } from '../../components/form-inputs/input-name.jsx';
 import { InputSubscription } from '../../components/form-inputs/input-subscription.jsx';
 import Schedule from '../../components/schedule/schedule.jsx';
 import SubmitButton from '../../components/submit-button/submit-button.jsx';
-import PopupContainer from '../../components/popup-container/popup-container.jsx';
-import DigitalCounter from '../../components/digital-counter/digital-counter.jsx';
 
 export default function RegistrationPage() {
 	const nameRef = useRef(null);
 	const subscriptionRef = useRef(null);
 
+	const [subscription, setSubscription] = useState(0);
 	const [schedule, setSchedule] = useState([
 		{
 			weekday: { short: "Пн", full: "Понеділок" },
@@ -46,9 +45,6 @@ export default function RegistrationPage() {
 		},
 	]);
 
-	const [isPopupOpen, setIsPopupOpen] = useState(true);
-	const [subscription, setSubscription] = useState(4);
-
 	return (
 		<PageContainer>
 			<form className='registration'>
@@ -57,9 +53,8 @@ export default function RegistrationPage() {
 
 					<InputName ref={nameRef} />
 					<InputSubscription
-						value={subscription}
-						setValue={setSubscription}
-						openPopup={() => setIsPopupOpen(true)}
+						subscriptionValue={subscription}
+						setSubscription={setSubscription}
 						ref={subscriptionRef}
 					/>
 				</div>
@@ -76,15 +71,6 @@ export default function RegistrationPage() {
 
 			</form>
 
-			<PopupContainer isOpen={isPopupOpen} closePopup={setIsPopupOpen}>
-				<div style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-					<DigitalCounter value={subscription} setValue={setSubscription} />
-				</div>
-			</PopupContainer>
 		</PageContainer>
 	)
 }
