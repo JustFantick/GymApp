@@ -15,33 +15,34 @@ export default function RegistrationPage() {
 
 	const [schedule, setSchedule] = useState([
 		{
-			weekday: "Пн",
+			weekday: { short: "Пн", full: "Понеділок" },
 			isActive: true,
 			time: "12:00",
 		},
 		{
-			weekday: "Вт",
+			weekday: { short: "Вт", full: "Вівторок" },
 			isActive: false,
-			time: "00:00",
-		}, {
-			weekday: "Ср",
+			time: "12:00",
+		},
+		{
+			weekday: { short: "Ср", full: "Середа" },
 			isActive: true,
 			time: "13:00",
-		}
-		, {
-			weekday: "Чт",
+		},
+		{
+			weekday: { short: "Чт", full: "Четвер" },
 			isActive: false,
-			time: "00:00",
-		}
-		, {
-			weekday: "Пт",
+			time: "12:00",
+		},
+		{
+			weekday: { short: "Пт", full: "П'ятниця" },
 			isActive: true,
 			time: "14:30",
-		}
-		, {
-			weekday: "Сб",
+		},
+		{
+			weekday: { short: "Сб", full: "Субота" },
 			isActive: false,
-			time: "00:00",
+			time: "12:00",
 		},
 	]);
 
