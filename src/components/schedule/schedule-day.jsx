@@ -2,11 +2,19 @@ import React from 'react';
 import './schedule-day.less';
 import { motion } from 'framer-motion';
 
-export default function ScheduleDay({ status, setStatus, day, time }) {
+export default function ScheduleDay({ status, setStatus, day, time, openPopup }) {
+	function handleClick(e) {
+		if (!e.target.closest('.schedule-day__time') || (e.target.closest('.schedule-day__time') && !status)) {
+			setStatus();
+		} else if (e.target.closest('.schedule-day__time') && status) {
+			openPopup();
+		}
+	}
+
 	return (
 		<motion.div
 			className='schedule-day'
-			onClick={() => setStatus(!status)}
+			onClick={handleClick}
 			layout data-isactive={status}
 			whileHover={{ scale: 1.05 }}
 			whileTap={{ scale: 0.9 }}
