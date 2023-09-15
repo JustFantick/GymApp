@@ -8,6 +8,7 @@ import Schedule from '../../components/schedule/schedule.jsx';
 import SubmitButton from '../../components/submit-button/submit-button.jsx';
 
 export default function RegistrationPage() {
+	const [name, setName] = useState('');
 	const [subscription, setSubscription] = useState(0);
 	const [schedule, setSchedule] = useState([
 		{
@@ -48,14 +49,16 @@ export default function RegistrationPage() {
 				<div className="registration__section">
 					<SectionTitle>Заповніть поля вводу</SectionTitle>
 
-					<InputName />
+					<InputName name={name} setName={setName} />
 					<InputSubscription subscriptionValue={subscription} setSubscription={setSubscription} />
+
 				</div>
 
 				<div className="registration__section">
 					<SectionTitle>Визначте графік відвідувань</SectionTitle>
 
 					<Schedule schedule={schedule} setSchedule={setSchedule} />
+
 				</div>
 
 				<div className="registration__sumbit-btn">

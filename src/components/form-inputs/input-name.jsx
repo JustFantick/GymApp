@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import './form-inputs.less';
 import { InputWrapper } from "./input-wrapper.jsx";
 
-export const InputName = ({ startValue = '', onInputChange }) => {
-	const [inputValue, setInputValue] = useState(startValue);
-
-	function onChange(e) {
-		setInputValue(e.target.value);
-	}
-
+export const InputName = ({ name = '', setName }) => {
 	return (
 		<InputWrapper>
 			<label className='input-wrapper__name-label'>
 				ПІБ
-				<input ref={ref}
+				<input
 					type="text" name="name"
-					value={inputValue} placeholder='______'
-					onChange={onChange}
+					value={name} placeholder='______'
+					onChange={(e) => setName(e.target.value)}
 				/>
 			</label>
 		</InputWrapper>
