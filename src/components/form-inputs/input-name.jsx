@@ -1,8 +1,8 @@
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import './form-inputs.less';
 import { InputWrapper } from "./input-wrapper.jsx";
 
-export const InputName = forwardRef(({ startValue = '', onInputChange }, ref) => {
+export const InputName = ({ startValue = '', onInputChange }) => {
 	const [inputValue, setInputValue] = useState(startValue);
 
 	function onChange(e) {
@@ -21,4 +21,4 @@ export const InputName = forwardRef(({ startValue = '', onInputChange }, ref) =>
 			</label>
 		</InputWrapper>
 	)
-});
+};

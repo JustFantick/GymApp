@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './registration.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import { SectionTitle } from '../../components/section-title/section-title.jsx';
@@ -8,9 +8,6 @@ import Schedule from '../../components/schedule/schedule.jsx';
 import SubmitButton from '../../components/submit-button/submit-button.jsx';
 
 export default function RegistrationPage() {
-	const nameRef = useRef(null);
-	const subscriptionRef = useRef(null);
-
 	const [subscription, setSubscription] = useState(0);
 	const [schedule, setSchedule] = useState([
 		{
@@ -51,12 +48,8 @@ export default function RegistrationPage() {
 				<div className="registration__section">
 					<SectionTitle>Заповніть поля вводу</SectionTitle>
 
-					<InputName ref={nameRef} />
-					<InputSubscription
-						subscriptionValue={subscription}
-						setSubscription={setSubscription}
-						ref={subscriptionRef}
-					/>
+					<InputName />
+					<InputSubscription subscriptionValue={subscription} setSubscription={setSubscription} />
 				</div>
 
 				<div className="registration__section">

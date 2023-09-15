@@ -1,11 +1,11 @@
-import React, { forwardRef, useState } from "react";
+import React, { useState } from "react";
 import './form-inputs.less';
 import { InputWrapper } from "./input-wrapper.jsx";
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 import PopupContainer from "../popup-container/popup-container.jsx";
 import DigitalCounter from "../digital-counter/digital-counter.jsx";
 
-export const InputSubscription = forwardRef(({ subscriptionValue, setSubscription }, ref) => {
+export const InputSubscription = ({ subscriptionValue, setSubscription }) => {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	function inputOnClick(e) {
@@ -48,4 +48,4 @@ export const InputSubscription = forwardRef(({ subscriptionValue, setSubscriptio
 			</PopupContainer>
 		</>
 	)
-});
+};
