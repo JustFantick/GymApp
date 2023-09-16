@@ -6,6 +6,7 @@ import { useVisitorsStore } from '../../store/store.js';
 import PopupContainer from '../../components/popup-container/popup-container.jsx';
 import VisitorCart from '../../components/visitor-cart/visitor-cart.jsx';
 import { SectionTitle } from '../../components/section-title/section-title.jsx';
+import SearchField from '../../components/search-field/search-field.jsx';
 
 export default function HomePage() {
 	const date = new Date();
@@ -24,6 +25,7 @@ export default function HomePage() {
 	}
 
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [searchValue, setSearchValue] = useState('');
 
 	return (
 		<main className='home'>
@@ -46,8 +48,14 @@ export default function HomePage() {
 			</PageContainer>
 
 			<PopupContainer isOpen={isPopupOpen} closePopup={() => setIsPopupOpen(false)}>
+				<div className="search">
+					<SearchField theme='white' value={searchValue} setValue={setSearchValue} />
+				</div>
+
 				<div className="flex-gap">
-					{visitorsList.map((li, id) => (
+					{visitorsList.filter((li) => {
+						return searchValue.toLowerCase() === '' ? li : li.name.toLowerCase().includes(searchValue);
+					}).map((li, id) => (
 						<VisitorCart key={id}
 							name={li.name}
 							subscriptionCounter={li.subscription}
