@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './visitor-cart.less';
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
+import { NavLink } from 'react-router-dom';
 
-export default function VisitorCart(
-	{ name, subscriptionCounter, theme = "green", showSubscriptionCounter = true }
-) {
+export default function VisitorCart({
+	name,
+	subscriptionCounter, showSubscriptionCounter = true,
+	theme = "green",
+	preventNavLink = false, linkUrl = '',
+	onClick,
+}) {
 	const [isOpen, setIsOpen] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
@@ -36,15 +41,30 @@ export default function VisitorCart(
 			</motion.div>
 		</>;
 
-	return (
+	const NoLinkCart =
 		<motion.div
 			className={`visitor-cart ${expiringStatus} ${theme}`}
-			onClick={() => setIsOpen(!isOpen)}
+			onClick={onClick}
 		>
 			<div className="visitor-cart__name">{name}</div>
 
 			{showSubscriptionCounter && subscriptionCounterBlock}
 
-		</motion.div>
-	)
+		</motion.div>;
+
+	const LinkCart =
+		<NavLink to={linkUrl}>
+			<motion.div
+				className={`visitor-cart ${expiringStatus} ${theme}`}
+				onClick={() => setIsOpen(!isOpen)}
+			>
+				<div className="visitor-cart__name">{name}</div>
+
+				{showSubscriptionCounter && subscriptionCounterBlock}
+
+			</motion.div>
+
+		</NavLink>;
+
+	return (preventNavLink ? NoLinkCart : LinkCart);
 }
