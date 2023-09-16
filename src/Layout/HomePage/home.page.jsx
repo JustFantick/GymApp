@@ -45,7 +45,7 @@ export default function HomePage() {
 				</div>
 			</PageContainer>
 
-			<PopupContainer isOpen={isPopupOpen} setIsOpen={setIsPopupOpen}>
+			<PopupContainer isOpen={isPopupOpen} closePopup={() => setIsPopupOpen(false)}>
 				<div className="flex-gap">
 					{visitorsList.map((li, id) => (
 						<VisitorCart key={id}
