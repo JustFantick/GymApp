@@ -10,13 +10,17 @@ export default function VisitorsPage() {
 
 	return (
 		<div className='visitors'>
-			<SearchField></SearchField>
+			<SearchField />
 
 			<PageContainer>
 				<div className="visitors__list">
 					{
 						visitorsList.map((li, id) => (
-							<VisitorCart key={id} name={li.name} />
+							<VisitorCart key={id}
+								name={li.name}
+								subscriptionCounter={li.subscription}
+								showSubscriptionCounter={false}
+							/>
 						))
 					}
 				</div>
