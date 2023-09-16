@@ -1,0 +1,25 @@
+@import url('../../styles/useful');
+
+.profile {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	&__section {
+
+		&.calendar {
+			border-radius: @border-radius;
+			background-color: @gray;
+		}
+
+		&.schedule {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+
+			&>*:first-child {
+				padding-left: 20px;
+			}
+		}
+	}
+}
