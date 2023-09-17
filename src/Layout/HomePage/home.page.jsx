@@ -22,7 +22,7 @@ export default function HomePage() {
 	}
 
 	const [hoursArr, setHoursArr] = useState(
-		[...new Set(todayVisitors.map(el => el.schedule[0].specifiedTime))]
+		[...new Set(todayVisitors.map(el => el.schedule[0].time))]
 	);
 
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function HomePage() {
 									addBtnOnClick={() => setIsPopupOpen(true)}
 									hour={hour}
 									visitorsList={
-										todayVisitors.filter(el => el.schedule[0].specifiedTime === hour)
+										todayVisitors.filter(el => el.schedule[0].time === hour)
 									}
 								/>
 							))
