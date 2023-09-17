@@ -1,9 +1,10 @@
 import React from 'react';
 import './hour-schedule.less';
 import VisitorCart from '../visitor-cart/visitor-cart.jsx';
+import SwipeToDeleteContainer from '../swipe-to-delete-container/swipe-to-delete-container.jsx';
 
 export default function HourSchedule(
-	{ hour, visitorsList, addBtnOnClick = null, showSubscriptionCounter = true }
+	{ hour, visitorsList, removeVisitor, addBtnOnClick = null, showSubscriptionCounter = true }
 ) {
 	return (
 		<div className="time-section">
@@ -18,15 +19,17 @@ export default function HourSchedule(
 				}
 			</div>
 
-			<ul className="time-section__visitors-list">
+			<ul className="time-section__visitors-list" >
 				{
 					showSubscriptionCounter ?
-						visitorsList.map((li, id) => (
-							<VisitorCart key={id} name={li.name} subscriptionCounter={li.subscription} />
+						visitorsList.map((li) => (
+							<SwipeToDeleteContainer key={li.id} height={54} onDelete={() => removeVisitor(li.id)}>
+								<VisitorCart name={li.name} subscriptionCounter={li.subscription} />
+							</SwipeToDeleteContainer>
 						))
 						:
-						visitorsList.map((li, id) => (
-							<VisitorCart key={id}
+						visitorsList.map((li) => (
+							<VisitorCart key={li.id}
 								name={li.name}
 								subscriptionCounter={li.subscription}
 								showSubscriptionCounter={false}
