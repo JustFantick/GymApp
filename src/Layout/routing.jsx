@@ -6,11 +6,16 @@ import VisitorsPage from './VisitorsPage/visitors.page.jsx';
 import RegistrationPage from './RegistrationPage/registration.page.jsx';
 import ErrorPage from './ErrorPage/error.page.jsx';
 import CalendarPage from './CalendarPage/calendar.page.jsx';
+import ProfilePage from './ProfilePage/profile.page.jsx';
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
 	registrationPath = "/registration",
 	calendarPath = "/calendar";
+
+const fetchProfile = ({ params }) => {
+	return { id: params.userId }
+};
 
 export const router = createHashRouter([
 	{
@@ -33,6 +38,11 @@ export const router = createHashRouter([
 			{
 				path: calendarPath,
 				element: <CalendarPage />
+			},
+			{
+				path: '/profile/:userId',
+				element: <ProfilePage />,
+				loader: fetchProfile,
 			}
 		]
 	}

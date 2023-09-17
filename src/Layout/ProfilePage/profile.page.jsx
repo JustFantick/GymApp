@@ -6,48 +6,17 @@ import { InputSubscription } from '../../components/form-inputs/input-subscripti
 import { SectionTitle } from '../../components/section-title/section-title.jsx';
 import Schedule from '../../components/schedule/schedule.jsx';
 import MarkingMiniCalendar from '../../components/calendar/marking-mini-calendar.jsx';
+import { useLoaderData } from 'react-router-dom';
+import { useVisitorsStore } from '../../store/store';
 
 export default function ProfilePage() {
-	const [name, setName] = useState('Сік Добрий');
-	const [subscription, setSubscription] = useState(1);
-	const [schedule, setSchedule] = useState([
-		{
-			date: 1,
-			weekday: { short: "Пн", full: "Понеділок" },
-			isActive: true,
-			time: "12:00",
-		},
-		{
-			date: 2,
-			weekday: { short: "Вт", full: "Вівторок" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			date: 3,
-			weekday: { short: "Ср", full: "Середа" },
-			isActive: true,
-			time: "13:00",
-		},
-		{
-			date: 4,
-			weekday: { short: "Чт", full: "Четвер" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			date: 5,
-			weekday: { short: "Пт", full: "П'ятниця" },
-			isActive: true,
-			time: "14:30",
-		},
-		{
-			date: 6,
-			weekday: { short: "Сб", full: "Субота" },
-			isActive: false,
-			time: "12:00",
-		},
-	]);
+	const { id } = useLoaderData();
+	const visitorsList = useVisitorsStore(state => state.visitors);
+	const profile = visitorsList.filter(li => li.id == id)[0];
+
+	const [name, setName] = useState(profile.name);
+	const [subscription, setSubscription] = useState(profile.subscription);
+	const [schedule, setSchedule] = useState(profile.schedule);
 
 	const weekdaysList = () => {
 		const result = [];
@@ -56,7 +25,6 @@ export default function ProfilePage() {
 		});
 		return result;
 	}
-	console.log(weekdaysList());
 
 	return (
 		<PageContainer>
