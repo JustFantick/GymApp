@@ -8,7 +8,7 @@ import PopupAddVisitor from '../../components/popup-add-visitor/popup-add-visito
 
 export default function HomePage() {
 	const date = new Date();
-	const weekDaysArr = ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота', 'Неділя'];
+	const weekDaysArr = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
 	const [todayVisitors, setTodayVisitors] = useState(
@@ -37,7 +37,7 @@ export default function HomePage() {
 				<PageContainer>
 					<div className="home__body">
 						<SectionTitle>
-							{`${weekDaysArr[date.getDay() - 1]}, ${date.getDate()}`}
+							{`${weekDaysArr[date.getDay()]}, ${date.getDate()}`}
 						</SectionTitle>
 
 						{
