@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 const visitorStore = immer((set, get) => ({
 	visitors: [
 		{
+			id: 0,
 			name: "Lorem ipsum",
 			subscription: 10,
 			schedule: [
@@ -40,6 +41,7 @@ const visitorStore = immer((set, get) => ({
 			]
 		},
 		{
+			id: 1,
 			name: "Lorem ipsum dolor",
 			subscription: 3,
 			schedule: [
@@ -76,6 +78,7 @@ const visitorStore = immer((set, get) => ({
 			]
 		},
 		{
+			id: 2,
 			name: "Lorem ipsum emet",
 			subscription: 0,
 			schedule: [
@@ -112,6 +115,7 @@ const visitorStore = immer((set, get) => ({
 			]
 		},
 		{
+			id: 3,
 			name: "Lorem ipsum",
 			subscription: 2,
 			schedule: [
@@ -148,6 +152,7 @@ const visitorStore = immer((set, get) => ({
 			]
 		},
 		{
+			id: 4,
 			name: "Lorem ipsum new",
 			subscription: 5,
 			schedule: [
