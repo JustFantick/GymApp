@@ -24,6 +24,7 @@ export default function VisitorsPage() {
 								li.name.toLowerCase().includes(searchValue.toLowerCase());
 						}).map((li) => (
 							<VisitorCart key={li.id}
+								linkUrl={`/profile/${li.id}`}
 								name={li.name}
 								subscriptionCounter={li.subscription}
 								showSubscriptionCounter={false}
