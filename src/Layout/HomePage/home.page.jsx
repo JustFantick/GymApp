@@ -14,13 +14,16 @@ export default function HomePage() {
 	const [todayVisitors, setTodayVisitors] = useState(
 		visitorsList.filter(li => li.schedule[0].isActive === true)
 	);
+
+	function setVisitorsList(userId) {
+		setTodayVisitors(
+			todayVisitors.filter(li => userId !== visitorsList.indexOf(li))
+		);
+	}
+
 	const [hoursArr, setHoursArr] = useState(
 		[...new Set(todayVisitors.map(el => el.schedule[0].specifiedTime))]
 	);
-
-	function getVisitorsListByHour(hour) {
-		return todayVisitors.filter(el => el.schedule[0].specifiedTime === hour);
-	}
 
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	function addVisitor(visitorName) {
@@ -40,9 +43,13 @@ export default function HomePage() {
 						{
 							hoursArr.map((hour, id) => (
 								<HourSchedule key={id}
+									removeVisitor={setVisitorsList}
 									addBtnOnClick={() => setIsPopupOpen(true)}
 									hour={hour}
-									visitorsList={getVisitorsListByHour(hour)} />
+									visitorsList={
+										todayVisitors.filter(el => el.schedule[0].specifiedTime === hour)
+									}
+								/>
 							))
 						}
 					</div>
