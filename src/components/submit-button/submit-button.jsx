@@ -2,9 +2,10 @@ import React from 'react';
 import './submit-button.less';
 import { motion } from 'framer-motion';
 
-export default function SubmitButton({ children, onClick }) {
+export default function SubmitButton({ children, onSubmit }) {
 	function onClickHandler(e) {
 		e.preventDefault();
+		onSubmit();
 	}
 	return (
 		<motion.button
