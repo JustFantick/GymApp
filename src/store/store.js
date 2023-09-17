@@ -18,7 +18,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -30,7 +30,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -42,7 +42,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
@@ -61,7 +61,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -73,7 +73,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -85,7 +85,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
@@ -104,7 +104,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -116,7 +116,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -128,7 +128,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
@@ -147,7 +147,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -159,7 +159,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -171,7 +171,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
@@ -190,7 +190,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -202,7 +202,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -214,7 +214,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
@@ -233,7 +233,7 @@ const visitorStore = immer((set, get) => ({
 					date: 2,
 					weekday: { short: "Вт", full: "Вівторок" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 3,
@@ -245,7 +245,7 @@ const visitorStore = immer((set, get) => ({
 					date: 4,
 					weekday: { short: "Чт", full: "Четвер" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 				{
 					date: 5,
@@ -257,7 +257,7 @@ const visitorStore = immer((set, get) => ({
 					date: 6,
 					weekday: { short: "Сб", full: "Субота" },
 					isActive: false,
-					time: '',
+					time: '12:00',
 				},
 			]
 		},
