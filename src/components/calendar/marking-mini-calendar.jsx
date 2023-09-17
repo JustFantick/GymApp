@@ -3,6 +3,7 @@ import { DateCalendar } from '@mui/x-date-pickers';
 import { CalendarLocalizator } from './calendar-localizator.jsx';
 import moment from 'moment';
 
+import './marking-mini-calendar.less';
 import { Badge } from '@mui/material';
 import { PickersDay } from '@mui/x-date-pickers';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
