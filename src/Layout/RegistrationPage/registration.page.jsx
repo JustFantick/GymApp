@@ -9,11 +9,15 @@ import SubmitButton from '../../components/submit-button/submit-button.jsx';
 
 export default function RegistrationPage() {
 	const [name, setName] = useState('');
+	const [nameLabel, setNameLabel] = useState('ПІБ');
+	const [isNameValid, setIsNameValid] = useState(true);
+
 	const [subscription, setSubscription] = useState(0);
+
 	const [schedule, setSchedule] = useState([
 		{
 			weekday: { short: "Пн", full: "Понеділок" },
-			isActive: true,
+			isActive: false,
 			time: "12:00",
 		},
 		{
@@ -23,8 +27,8 @@ export default function RegistrationPage() {
 		},
 		{
 			weekday: { short: "Ср", full: "Середа" },
-			isActive: true,
-			time: "13:00",
+			isActive: false,
+			time: "12:00",
 		},
 		{
 			weekday: { short: "Чт", full: "Четвер" },
@@ -33,8 +37,8 @@ export default function RegistrationPage() {
 		},
 		{
 			weekday: { short: "Пт", full: "П'ятниця" },
-			isActive: true,
-			time: "14:30",
+			isActive: false,
+			time: "12:00",
 		},
 		{
 			weekday: { short: "Сб", full: "Субота" },
@@ -43,13 +47,34 @@ export default function RegistrationPage() {
 		},
 	]);
 
+	function onSubmitHandler() {
+		const scrollToTheTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+		if (name === '') {
+			setNameLabel('Заповніть поле');
+			setIsNameValid(false);
+			scrollToTheTop();
+		} else if (/^\d+$/.test(name)) {
+			setNameLabel('Поле не повинно містити лише числа');
+			setIsNameValid(false);
+			scrollToTheTop();
+		}
+		else {
+			setNameLabel('ПІБ');
+			setIsNameValid(true);
+		}
+	}
+
 	return (
 		<PageContainer>
 			<form className='registration'>
 				<div className="registration__section">
 					<SectionTitle>Заповніть поля вводу</SectionTitle>
 
-					<InputName name={name} setName={setName} />
+					<InputName
+						name={name} setName={setName}
+						label={nameLabel} isValid={isNameValid}
+					/>
 					<InputSubscription subscriptionValue={subscription} setSubscription={setSubscription} />
 
 				</div>
@@ -62,7 +87,7 @@ export default function RegistrationPage() {
 				</div>
 
 				<div className="registration__sumbit-btn">
-					<SubmitButton>Зареэструвати</SubmitButton>
+					<SubmitButton onSubmit={onSubmitHandler}>Зареэструвати</SubmitButton>
 				</div>
 
 			</form>
