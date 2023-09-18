@@ -21,9 +21,7 @@ export default function HomePage() {
 		);
 	}
 
-	const [hoursArr, setHoursArr] = useState(
-		[...new Set(todayVisitors.map(el => el.schedule[0].time))]
-	);
+	const hoursArr = [...new Set(todayVisitors.map(el => el.schedule[0].time))];
 
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	function addVisitor(visitorName) {
