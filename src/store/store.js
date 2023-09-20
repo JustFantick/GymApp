@@ -304,6 +304,49 @@ const visitorStore = immer((set, get) => ({
 				},
 			]
 		},
+		{
+			id: 7,
+			name: "Єблантій XV",
+			subscription: 5,
+			schedule: [
+				{
+					date: 1,
+					weekday: { short: "Пн", full: "Понеділок" },
+					isActive: false,
+					time: '12:00',
+				},
+				{
+					date: 2,
+					weekday: { short: "Вт", full: "Вівторок" },
+					isActive: false,
+					time: '13:00',
+				},
+				{
+					date: 3,
+					weekday: { short: "Ср", full: "Середа" },
+					isActive: false,
+					time: '12:00',
+				},
+				{
+					date: 4,
+					weekday: { short: "Чт", full: "Четвер" },
+					isActive: false,
+					time: '12:00',
+				},
+				{
+					date: 5,
+					weekday: { short: "Пт", full: "П'ятниця" },
+					isActive: false,
+					time: '15:00',
+				},
+				{
+					date: 6,
+					weekday: { short: "Сб", full: "Субота" },
+					isActive: false,
+					time: '12:00',
+				},
+			]
+		},
 	],
 
 	setSubscription: (n) => {
