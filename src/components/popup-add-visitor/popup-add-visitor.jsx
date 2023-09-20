@@ -37,7 +37,7 @@ export default function PopupAddVisitor({ addVisitorFunc, visitorsList, isOpen, 
 							showSubscriptionCounter={false}
 							theme='light'
 							preventNavLink={true}
-							onClick={() => addVisitorFunc(li.name)}
+							onClick={() => addVisitorFunc(li)}
 						/>
 					))}
 				</div>

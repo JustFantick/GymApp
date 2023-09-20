@@ -12,7 +12,12 @@ export default function HomePage() {
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
 	const [todayVisitors, setTodayVisitors] = useState(
-		visitorsList.filter(li => li.schedule[0].isActive === true)
+		visitorsList.filter(li => {
+			if (li.schedule[0].isActive === true) {
+				li.todaysTime = li.schedule[0].time;
+				return li;
+			}
+		})
 	);
 
 	function setVisitorsList(userId) {
@@ -21,12 +26,25 @@ export default function HomePage() {
 		);
 	}
 
-	const hoursArr = [...new Set(todayVisitors.map(el => el.schedule[0].time))];
+	const hoursArr = [...new Set(todayVisitors.map(el => el.todaysTime))].sort();
 
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
-	function addVisitor(visitorName) {
-		console.log(visitorName);
+	const [popupHour, setPopupHour] = useState('12:00');
+
+	function openPopup(hour) {
+		setIsPopupOpen(true);
+		setPopupHour(hour);
+	}
+
+	function addVisitor(visitorObj) {
 		setIsPopupOpen(false);
+		setTodayVisitors([
+			...todayVisitors,
+			{
+				...visitorObj,
+				todaysTime: popupHour,
+			}
+		]);
 	}
 
 	return (
@@ -42,10 +60,10 @@ export default function HomePage() {
 							hoursArr.map((hour, id) => (
 								<HourSchedule key={id}
 									removeVisitor={setVisitorsList}
-									addBtnOnClick={() => setIsPopupOpen(true)}
+									addBtnOnClick={() => openPopup(hour)}
 									hour={hour}
 									visitorsList={
-										todayVisitors.filter(el => el.schedule[0].time === hour)
+										todayVisitors.filter(el => el.todaysTime === hour)
 									}
 								/>
 							))
@@ -57,7 +75,7 @@ export default function HomePage() {
 			</main>
 
 			<PopupAddVisitor
-				visitorsList={visitorsList}
+				visitorsList={visitorsList.filter(li => todayVisitors.map(el => el.id).indexOf(li.id) == -1)}
 				isOpen={isPopupOpen}
 				closePopup={() => setIsPopupOpen(false)}
 				addVisitorFunc={addVisitor}
