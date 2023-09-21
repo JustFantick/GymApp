@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './visitors.page.less';
 import SearchField from '../../components/search-field/search-field.jsx';
 import VisitorCart from '../../components/visitor-cart/visitor-cart.jsx';
-import { useVisitorsStore } from '../../store/store';
+import { useVisitorsStore } from '../../store/visitorStore';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 

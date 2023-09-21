@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './calendar.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import Calendar from '../../components/calendar/calendar.jsx';
-import { useVisitorsStore } from '../../store/store';
+import { useVisitorsStore } from '../../store/visitorStore';
 import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
 
 export default function CalendarPage() {

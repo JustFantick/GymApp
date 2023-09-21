@@ -7,7 +7,7 @@ import { SectionTitle } from '../../components/section-title/section-title.jsx';
 import Schedule from '../../components/schedule/schedule.jsx';
 import MarkingMiniCalendar from '../../components/calendar/marking-mini-calendar.jsx';
 import { useLoaderData } from 'react-router-dom';
-import { useVisitorsStore } from '../../store/store';
+import { useVisitorsStore } from '../../store/visitorStore';
 
 export default function ProfilePage() {
 	const { id } = useLoaderData();

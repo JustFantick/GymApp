@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './home.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
-import { useVisitorsStore } from '../../store/store.js';
+import { useVisitorsStore } from '../../store/visitorStore.js';
 import { SectionTitle } from '../../components/section-title/section-title.jsx';
 import PopupAddVisitor from '../../components/popup-add-visitor/popup-add-visitor.jsx';
 
