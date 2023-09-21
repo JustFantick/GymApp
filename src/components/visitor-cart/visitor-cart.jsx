@@ -14,6 +14,12 @@ export default function VisitorCart({
 	const [isOpen, setIsOpen] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
+	function navigationOnCLick(e) {
+		if (e.target.closest('.visitor-cart__subscription-counter') || e.target.closest('.visitor-cart__slider')) {
+			e.preventDefault();
+		}
+	}
+
 	const subscriptionCounterBlock =
 		<>
 			{/* Motion didn't used coz it doesn't allow animate border-radius */}
@@ -53,7 +59,7 @@ export default function VisitorCart({
 		</motion.div>;
 
 	const LinkCart =
-		<NavLink to={linkUrl}>
+		<NavLink to={linkUrl} onClick={(e) => navigationOnCLick(e)}>
 			<motion.div
 				className={`visitor-cart ${expiringStatus} ${theme}`}
 				onClick={() => setIsOpen(!isOpen)}
