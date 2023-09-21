@@ -23,7 +23,7 @@ export default function HourSchedule(
 				{
 					showSubscriptionCounter ?
 						visitorsList.map((li) => (
-							<SwipeToDeleteContainer key={li.id} height={54} onDelete={() => removeVisitor(li.id)}>
+							<SwipeToDeleteContainer key={li.id} height={51} onDelete={() => removeVisitor(li.id)}>
 								<VisitorCart
 									linkUrl={`/profile/${li.id}`}
 									name={li.name}
