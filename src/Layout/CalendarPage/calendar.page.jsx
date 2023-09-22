@@ -1,27 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './calendar.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import Calendar from '../../components/calendar/calendar.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
 import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
+import moment from 'moment';
 
 export default function CalendarPage() {
 	const visitorsList = useVisitorsStore(state => state.visitors);
-	const [todayVisitors, setTodayVisitors] = useState(
-		visitorsList.filter(li => li.schedule[0].isActive === true)
-	);
-	const [hoursArr, setHoursArr] = useState(
-		[...new Set(todayVisitors.map(el => el.schedule[0].specifiedTime))]
-	);
 
-	function getVisitorsListByHour(hour) {
-		return todayVisitors.filter(el => el.schedule[0].specifiedTime === hour);
-	}
+	const [currentDate, setCurrentDate] = useState(moment());
+	const currentDayIndex = currentDate.day() - 1 >= 0 ? currentDate.day() - 1 : -1;
+
+	const [weekdayVisitors, setWeekdayVisitors] = useState([]);
+
+	useEffect(() => {
+		setWeekdayVisitors(
+			() => {
+				if (currentDayIndex === -1) return [];
+				return visitorsList.filter(li => {
+					li.schedule[currentDayIndex].isActive === true
+					if (li.schedule[currentDayIndex].isActive === true) {
+						li.todaysTime = li.schedule[currentDayIndex].time;
+						return li;
+					}
+				});
+			}
+		)
+	}, [currentDate]);
+
+	const hoursArr = [...new Set(
+		currentDayIndex >= 0 ? weekdayVisitors.map(el => el.schedule[currentDayIndex].time) : []
+	)].sort();
 
 	return (
 		<div className="calendar-page">
 			<div className="calendar-page__calendar">
-				<Calendar />
+				<Calendar date={currentDate} onDateChange={(date) => setCurrentDate(date)} />
 			</div>
 
 			<PageContainer>
@@ -30,12 +45,15 @@ export default function CalendarPage() {
 						hoursArr.map((hour, id) => (
 							<HourSchedule key={id}
 								hour={hour}
-								visitorsList={getVisitorsListByHour(hour)}
+								visitorsList={
+									weekdayVisitors.filter(el => el.schedule[currentDayIndex].time === hour)
+								}
 								showSubscriptionCounter={false}
 							/>
 						))
 					}
 				</div>
+
 			</PageContainer>
 
 		</div>
