@@ -5,6 +5,7 @@ import Calendar from '../../components/calendar/calendar.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
 import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
 import moment from 'moment';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export default function CalendarPage() {
 	const visitorsList = useVisitorsStore(state => state.visitors);
@@ -13,6 +14,8 @@ export default function CalendarPage() {
 	const currentDayIndex = currentDate.day() - 1 >= 0 ? currentDate.day() - 1 : -1;
 
 	const [weekdayVisitors, setWeekdayVisitors] = useState([]);
+
+	const [listRef] = useAutoAnimate();
 
 	useEffect(() => {
 		setWeekdayVisitors(
@@ -23,6 +26,7 @@ export default function CalendarPage() {
 					if (li.schedule[currentDayIndex].isActive === true) {
 						li.todaysTime = li.schedule[currentDayIndex].time;
 						return li;
+
 					}
 				});
 			}
@@ -40,7 +44,7 @@ export default function CalendarPage() {
 			</div>
 
 			<PageContainer>
-				<div className="calendar-page__visitors-list">
+				<div className="calendar-page__visitors-list" ref={listRef}>
 					{
 						hoursArr.map((hour, id) => (
 							<HourSchedule key={id}
