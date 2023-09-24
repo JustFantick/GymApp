@@ -12,17 +12,14 @@ export default function HomePage() {
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
 	const [todayVisitors, setTodayVisitors] = useState(
-		visitorsList.filter(li => {
-			if (li.schedule[0].isActive === true) {
-				li.todaysTime = li.schedule[0].time;
-				return li;
-			}
+		visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
+			return { ...li, todaysTime: li.schedule[0].time };
 		})
 	);
 
 	function setVisitorsList(userId) {
 		setTodayVisitors(
-			todayVisitors.filter(li => userId !== visitorsList.indexOf(li))
+			todayVisitors.filter(li => userId !== li.id)
 		);
 	}
 
