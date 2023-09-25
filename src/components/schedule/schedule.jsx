@@ -23,9 +23,7 @@ export default function Schedule({ schedule, setSchedule }) {
 						openSchedulePopup(id);
 					}, 200);
 				}
-				el.isActive = !el.isActive;
-
-				return el;
+				return { ...el, isActive: !el.isActive };
 			}
 		}));
 	}
