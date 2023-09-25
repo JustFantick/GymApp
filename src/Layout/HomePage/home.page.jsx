@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './home.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
@@ -11,11 +11,15 @@ export default function HomePage() {
 	const weekDaysArr = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
-	const [todayVisitors, setTodayVisitors] = useState(
-		visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
-			return { ...li, todaysTime: li.schedule[0].time };
-		})
-	);
+	const [todayVisitors, setTodayVisitors] = useState([]);
+
+	useEffect(() => {
+		setTodayVisitors(
+			visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
+				return { ...li, todaysTime: li.schedule[0].time };
+			})
+		);
+	}, [visitorsList]);
 
 	function setVisitorsList(userId) {
 		setTodayVisitors(
