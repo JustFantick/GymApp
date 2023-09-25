@@ -31,12 +31,8 @@ export default function Schedule({ schedule, setSchedule }) {
 	function setScheduleTime(time) {
 		setSchedule(
 			schedule.map((day, n) => {
-				if (n !== scheduleId) {
-					return day;
-				} else {
-					day.time = time;
-					return day;
-				}
+				if (n !== scheduleId) return day;
+				return { ...day, time: time };
 			})
 		);
 
