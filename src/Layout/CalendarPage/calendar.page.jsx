@@ -22,11 +22,8 @@ export default function CalendarPage() {
 			() => {
 				if (currentDayIndex === -1) return [];
 				return visitorsList.filter(li => {
-					li.schedule[currentDayIndex].isActive === true
 					if (li.schedule[currentDayIndex].isActive === true) {
-						li.todaysTime = li.schedule[currentDayIndex].time;
-						return li;
-
+						return { ...li, todaysTime: li.schedule[currentDayIndex].time };
 					}
 				});
 			}
