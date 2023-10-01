@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './profile.page.less';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import { InputName } from '../../components/form-inputs/input-name.jsx';
@@ -25,6 +25,24 @@ export default function ProfilePage() {
 		});
 		return result;
 	}
+
+	const setVisitorName = useVisitorsStore(state => state.setVisitorName);
+	const setVisitorSubscription = useVisitorsStore(state => state.setVisitorSubscription);
+	const setVisitorSchedule = useVisitorsStore(state => state.setVisitorSchedule);
+
+	useEffect(() => {
+		setVisitorName(id, name);
+	}, [name]);
+
+
+	useEffect(() => {
+		setVisitorSubscription(id, subscription);
+	}, [subscription]);
+
+
+	useEffect(() => {
+		setVisitorSchedule(id, schedule);
+	}, [schedule]);
 
 	return (
 		<PageContainer>

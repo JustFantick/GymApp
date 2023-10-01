@@ -6,6 +6,7 @@ import { InputName } from '../../components/form-inputs/input-name.jsx';
 import { InputSubscription } from '../../components/form-inputs/input-subscription.jsx';
 import Schedule from '../../components/schedule/schedule.jsx';
 import SubmitButton from '../../components/submit-button/submit-button.jsx';
+import { useVisitorsStore } from '../../store/visitorStore';
 
 export default function RegistrationPage() {
 	const [name, setName] = useState('');
@@ -14,39 +15,10 @@ export default function RegistrationPage() {
 
 	const [subscription, setSubscription] = useState(0);
 
-	const [schedule, setSchedule] = useState([
-		{
-			weekday: { short: "Пн", full: "Понеділок" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			weekday: { short: "Вт", full: "Вівторок" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			weekday: { short: "Ср", full: "Середа" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			weekday: { short: "Чт", full: "Четвер" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			weekday: { short: "Пт", full: "П'ятниця" },
-			isActive: false,
-			time: "12:00",
-		},
-		{
-			weekday: { short: "Сб", full: "Субота" },
-			isActive: false,
-			time: "12:00",
-		},
-	]);
+	const scheduleTemplate = useVisitorsStore(state => state.scheduleTemplate);
+	const [schedule, setSchedule] = useState(scheduleTemplate);
 
+	const addNewVisitor = useVisitorsStore((state) => state.addNewVisitor);
 	function onSubmitHandler() {
 		const scrollToTheTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -60,9 +32,18 @@ export default function RegistrationPage() {
 			scrollToTheTop();
 		}
 		else {
-			setNameLabel('ПІБ');
 			setIsNameValid(true);
+			addNewVisitor(name, subscription, schedule);
+			setDefaultStateValues();
 		}
+	}
+
+	function setDefaultStateValues() {
+		setName('');
+		setNameLabel('ПІБ');
+		setIsNameValid(true);
+		setSubscription(0);
+		setSchedule(scheduleTemplate);
 	}
 
 	return (
