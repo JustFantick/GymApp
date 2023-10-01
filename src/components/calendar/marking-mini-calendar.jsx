@@ -11,6 +11,7 @@ import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 	const [attendance, setAttendance] = useState([]);
 	const [lastSubscribtionIndex, setLastSubscribtionIndex] = useState(null);
+	const today = moment();
 
 	useEffect(() => {
 		const temp = [];
@@ -19,20 +20,20 @@ export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 
 		for (startOfMonth; startOfMonth <= endOfMonth; startOfMonth.add(1, 'day')) {
 			if (weekdaysList.includes(startOfMonth.weekday())) {
-				temp.push(startOfMonth.date());
+				temp.push(startOfMonth.dayOfYear());
 			}
 		}
 
 		let closestAttendanceIndex;
-		if (temp.indexOf(moment().date()) >= 0) {
-			closestAttendanceIndex = temp.indexOf(moment().date());
+		if (temp.indexOf(moment().dayOfYear()) >= 0) {
+			closestAttendanceIndex = temp.indexOf(moment().dayOfYear());
 		} else {
 			//if Today is inactive, find closest active date
 			let todayDate = moment();
 			while (!weekdaysList.includes(todayDate.day())) {
 				todayDate.add(1, 'day');
 			}
-			closestAttendanceIndex = temp.indexOf(todayDate.date());
+			closestAttendanceIndex = temp.indexOf(todayDate.dayOfYear());
 		}
 
 		setAttendance(temp);
@@ -52,9 +53,15 @@ export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 
 		const badgeCX = { transform: 'translate(-5%, 5%)', fontWeight: '600' };
 		const MarkToRender =
-			props.day.date() <= attendance[lastSubscribtionIndex] ?
-				<DoneRoundedIcon sx={{ ...badgeCX, color: 'green', }} /> :
-				<DoneRoundedIcon sx={{ ...badgeCX, color: '#fbba72', }} />;
+			(props.day.year() == today.year())
+				?
+				(props.day.dayOfYear() <= attendance[lastSubscribtionIndex]) ?
+					<DoneRoundedIcon sx={{ ...badgeCX, color: 'green', }} /> :
+					<DoneRoundedIcon sx={{ ...badgeCX, color: '#fbba72', }} /> :
+
+				(props.day.year() < today.year()) ?
+					<DoneRoundedIcon sx={{ ...badgeCX, color: 'green', }} /> :
+					<DoneRoundedIcon sx={{ ...badgeCX, color: '#fbba72', }} />;
 
 		return (
 			<Badge
