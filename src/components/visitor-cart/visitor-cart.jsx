@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import './visitor-cart.less';
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 import { NavLink } from 'react-router-dom';
+import { useVisitorsStore } from '../../store/visitorStore';
 
 export default function VisitorCart({
 	name,
@@ -10,6 +11,7 @@ export default function VisitorCart({
 	theme = "green",
 	preventNavLink = false, linkUrl = '',
 	onClick,
+	visitorId = null,
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
@@ -18,6 +20,11 @@ export default function VisitorCart({
 		if (e.target.closest('.visitor-cart__subscription-counter') || e.target.closest('.visitor-cart__slider')) {
 			e.preventDefault();
 		}
+	}
+
+	const setVisitorSubscription = useVisitorsStore(state => state.setVisitorSubscription);
+	function setSubscriptionHandler(id, n) {
+		setVisitorSubscription(id, n);
 	}
 
 	const subscriptionCounterBlock =
@@ -40,7 +47,7 @@ export default function VisitorCart({
 						<QuickIncreaseButton key={id}
 							coefficient={li}
 							theme={subscriptionCounter === 0 ? 'yellow' : 'green'}
-							onClick={() => console.log(`Clicked +${li}`)}
+							onClick={() => setSubscriptionHandler(visitorId, (subscriptionCounter + li))}
 						/>
 					))
 				}

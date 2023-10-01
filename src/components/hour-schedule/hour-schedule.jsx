@@ -28,6 +28,7 @@ export default function HourSchedule(
 									linkUrl={`/profile/${li.id}`}
 									name={li.name}
 									subscriptionCounter={li.subscription}
+									visitorId={li.id}
 								/>
 							</SwipeToDeleteContainer>
 						))
