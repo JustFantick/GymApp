@@ -14,11 +14,20 @@ export default function HomePage() {
 	const [todayVisitors, setTodayVisitors] = useState([]);
 
 	useEffect(() => {
-		setTodayVisitors(
-			visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
-				return { ...li, todaysTime: li.schedule[0].time };
-			})
-		);
+		if (todayVisitors.length !== 0) {
+			setTodayVisitors(
+				todayVisitors.map(visitor => {
+					return { ...visitor, subscription: visitorsList.find(v => v.id === visitor.id).subscription }
+				})
+			)
+		} else {
+			setTodayVisitors(
+				visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
+					return { ...li, todaysTime: li.schedule[0].time };
+				})
+			);
+		}
+
 	}, [visitorsList]);
 
 	function setVisitorsList(userId) {
