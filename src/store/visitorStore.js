@@ -2,11 +2,14 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 const visitorStore = immer((set, get) => ({
+	idCounter: 8,
+	incrementIdCounter: () => set((state) => { state.idCounter++ }),
+
 	visitors: [
 		{
 			id: 0,
 			name: "Головкин Тихон",
-			subscription: 10,
+			subscription: 1,
 			schedule: [
 				{
 					date: 1,
@@ -178,7 +181,7 @@ const visitorStore = immer((set, get) => ({
 		{
 			id: 4,
 			name: "Облеухова Ада",
-			subscription: 5,
+			subscription: 1,
 			schedule: [
 				{
 					date: 1,
@@ -304,53 +307,87 @@ const visitorStore = immer((set, get) => ({
 				},
 			]
 		},
+	],
+
+	setVisitorName: (id, name) => {
+		const visitorObj = get().visitors.filter(v => v.id == id)[0];
+		set((state) => {
+			state.visitors[get().visitors.indexOf(visitorObj)].name = name
+		});
+	},
+
+	setVisitorSubscription: (id, n) => {
+		const visitorObj = get().visitors.filter(v => v.id == id)[0];
+		set((state) => {
+			state.visitors[get().visitors.indexOf(visitorObj)].subscription = n
+		});
+	},
+
+	setVisitorSchedule: (id, scheduleObj) => {
+		const visitorObj = get().visitors.filter(v => v.id == id)[0];
+		set((state) => {
+			state.visitors[get().visitors.indexOf(visitorObj)].schedule = scheduleObj
+		});
+	},
+
+	addNewVisitor: (name, subscription, schedule) => {
+		set((state) => {
+			state.visitors.push({
+				id: get().idCounter,
+				name: name,
+				subscription: subscription,
+				schedule: schedule,
+			})
+		});
+		get().incrementIdCounter();
+	},
+
+	scheduleTemplate: [
 		{
-			id: 7,
-			name: "Єблантій XV",
-			subscription: 5,
-			schedule: [
-				{
-					date: 1,
-					weekday: { short: "Пн", full: "Понеділок" },
-					isActive: false,
-					time: '12:00',
-				},
-				{
-					date: 2,
-					weekday: { short: "Вт", full: "Вівторок" },
-					isActive: false,
-					time: '13:00',
-				},
-				{
-					date: 3,
-					weekday: { short: "Ср", full: "Середа" },
-					isActive: false,
-					time: '12:00',
-				},
-				{
-					date: 4,
-					weekday: { short: "Чт", full: "Четвер" },
-					isActive: false,
-					time: '12:00',
-				},
-				{
-					date: 5,
-					weekday: { short: "Пт", full: "П'ятниця" },
-					isActive: false,
-					time: '15:00',
-				},
-				{
-					date: 6,
-					weekday: { short: "Сб", full: "Субота" },
-					isActive: false,
-					time: '12:00',
-				},
-			]
+			date: 1,
+			weekday: { short: "Пн", full: "Понеділок" },
+			isActive: false,
+			time: "12:00",
+		},
+		{
+			date: 2,
+			weekday: { short: "Вт", full: "Вівторок" },
+			isActive: false,
+			time: "12:00",
+		},
+		{
+			date: 3,
+			weekday: { short: "Ср", full: "Середа" },
+			isActive: false,
+			time: "12:00",
+		},
+		{
+			date: 4,
+			weekday: { short: "Чт", full: "Четвер" },
+			isActive: false,
+			time: "12:00",
+		},
+		{
+			date: 5,
+			weekday: { short: "Пт", full: "П'ятниця" },
+			isActive: false,
+			time: "12:00",
+		},
+		{
+			date: 6,
+			weekday: { short: "Сб", full: "Субота" },
+			isActive: false,
+			time: "12:00",
 		},
 	],
 
-	setSubscription: (n) => {
-		set((state) => { state.visitors[0].subscription = n });
+
+	todaysVisitors: [],
+	setTodaysVisitors: (visitorsArray) => {
+		state.todaysVisitors = visitorsArray;
+	},
+	addTodaysVisitor: (visitorObj) => {
+		state.todaysVisitors.push(visitorObj);
 	},
 }));
 
