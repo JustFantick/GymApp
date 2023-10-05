@@ -1,0 +1,38 @@
+@import url('../../styles/useful');
+
+.schedule-table {
+	@borderStyles: 1px solid #70757A;
+
+	tr {
+		border-bottom: @borderStyles;
+		display: flex;
+
+		th[data-header-order='first'] {
+			flex: 0 0 20%;
+		}
+
+		th[data-header-order='second'] {
+			flex: 1 1 auto;
+		}
+	}
+
+	th {
+		padding: 1rem;
+	}
+
+	th[data-header-order='first'] {
+		border-right: @borderStyles;
+
+		color: @dark-text;
+		font-size: 14px;
+		font-weight: 400;
+	}
+
+	th[data-header-order='second'] {
+		text-align-last: left;
+
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+}
