@@ -1,83 +1,71 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import './visitor-cart.less';
-import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 import { NavLink } from 'react-router-dom';
 import { useVisitorsStore } from '../../store/visitorStore';
+import DoneIcon from '../../img/done-icon.svg';
 
-export default function VisitorCart({
+export default function VisitorCartLink({
 	name,
-	subscriptionCounter, showSubscriptionCounter = true,
+	visitorId,
+	linkUrl,
+	subscriptionCounter,
 	theme = "green",
-	preventNavLink = false, linkUrl = '',
-	onClick,
-	visitorId = null,
+	showDoneStatus = false,
 }) {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isDone, setIsDone] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
 	function navigationOnCLick(e) {
-		if (e.target.closest('.visitor-cart__subscription-counter') || e.target.closest('.visitor-cart__slider')) {
+		if (e.target.closest('.visitor-cart__done-status') || e.target.closest('.visitor-cart__slider')) {
 			e.preventDefault();
 		}
 	}
 
 	const setVisitorSubscription = useVisitorsStore(state => state.setVisitorSubscription);
-	function setSubscriptionHandler(id, n) {
-		setVisitorSubscription(id, n);
+	function statusChangeHandler(e) {
+		setIsDone(!isDone);
+		e.target.closest('.visitor-cart__done-status').classList.toggle('active');
+		setVisitorSubscription(visitorId, subscriptionCounter - 1);
 	}
 
-	const subscriptionCounterBlock =
-		<>
-			{/* Motion didn't used coz it doesn't allow animate border-radius */}
-			<div className="visitor-cart__subscription-counter" data-isopen={isOpen}>
-				{subscriptionCounter}
+	const doneStatusBlock =
+		<div className="visitor-cart__done-status" onClick={e => statusChangeHandler(e)}>
+			<img src={DoneIcon} alt="done-icon.svg" />
+		</div>;
+
+	return (
+		<NavLink to={linkUrl} onClick={(e) => navigationOnCLick(e)}>
+			<div
+				className={`visitor-cart ${expiringStatus} ${theme}`}
+				onClick={() => setIsDone(!isDone)}
+			>
+				<div className={`visitor-cart__name ${isDone && 'line-through'}`}>
+					{name}
+				</div>
+
+				{showDoneStatus && doneStatusBlock}
+
 			</div>
 
-			<motion.div className="visitor-cart__slider increase-value-list"
-				variants={{
-					open: { x: 0 },
-					closed: { x: '100%' }
-				}}
-				animate={isOpen ? 'open' : 'closed'}
-				transition={{ ease: "backInOut", duration: 0.5 }}
-			>
-				{
-					[1, 2, 3, 4].map((li, id) => (
-						<QuickIncreaseButton key={id}
-							coefficient={li}
-							theme={subscriptionCounter === 0 ? 'yellow' : 'green'}
-							onClick={() => setSubscriptionHandler(visitorId, (subscriptionCounter + li))}
-						/>
-					))
-				}
-			</motion.div>
-		</>;
+		</NavLink>
+	)
+}
 
-	const NoLinkCart =
-		<motion.div
+function VisitorCart({
+	name,
+	subscriptionCounter,
+	onClick,
+	theme = "green",
+}) {
+	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
+
+	return (
+		<div
 			className={`visitor-cart ${expiringStatus} ${theme}`}
 			onClick={onClick}
 		>
 			<div className="visitor-cart__name">{name}</div>
 
-			{showSubscriptionCounter && subscriptionCounterBlock}
-
-		</motion.div>;
-
-	const LinkCart =
-		<NavLink to={linkUrl} onClick={(e) => navigationOnCLick(e)}>
-			<motion.div
-				className={`visitor-cart ${expiringStatus} ${theme}`}
-				onClick={() => setIsOpen(!isOpen)}
-			>
-				<div className="visitor-cart__name">{name}</div>
-
-				{showSubscriptionCounter && subscriptionCounterBlock}
-
-			</motion.div>
-
-		</NavLink>;
-
-	return (preventNavLink ? NoLinkCart : LinkCart);
+		</div>
+	);
 }

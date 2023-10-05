@@ -4,6 +4,60 @@
 	border-radius: @border-radius;
 	padding: 6px 12px;
 
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+
+	//trick that stops children elements
+	// from affecting parent width
+	min-width: 100%;
+	width: 0;
+
+	&__name {
+		flex: 0 1 87%;
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		&.line-through {
+			text-decoration: line-through;
+		}
+	}
+
+	&__done-status {
+		@sideSize: 18px;
+
+		height: @sideSize;
+		width: @sideSize;
+
+		border-radius: 50%;
+		border: 2px solid @gray;
+
+		position: relative;
+
+		img {
+			height: 90%;
+			width: 90%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform-origin: bottom;
+			transform: translate(-40%, -65%) scale(0);
+			transition: transform 0.3s ease-in-out;
+		}
+
+		&.active img {
+			transform: translate(-40%, -65%) scale(1);
+		}
+
+	}
+
 	&.green {
 		background-color: @green;
 
@@ -17,68 +71,6 @@
 
 		.visitor-cart__name {
 			color: @dark-text;
-		}
-	}
-
-	&__name {
-		font-size: 16px;
-		font-style: normal;
-		font-weight: 400;
-		line-height: normal;
-
-		padding-right: 50px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	position: relative;
-	overflow: hidden;
-
-	&__slider {
-		position: absolute;
-		inset: 0;
-		margin: auto;
-		z-index: 2;
-
-		height: calc(100% - 2px);
-		width: calc(100% - 2px);
-
-		background-color: @gray;
-		border-radius: @border-radius;
-		border: 1px solid @green;
-
-		padding: 0 20px;
-	}
-
-	&__subscription-counter {
-		position: absolute;
-		top: 50%;
-		right: 0px;
-		transform: translate(0%, -50%);
-		z-index: 3;
-
-		height: calc(100% - 1px);
-		width: 60px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		background-color: @gray;
-		border-radius: @border-radius;
-		border: 2px solid @green;
-
-		color: @green;
-		font-family: 'Varela Round';
-		font-size: 20px;
-		font-style: normal;
-		font-weight: 400;
-		line-height: normal;
-
-		transition: all 0.5s ease-in-out;
-
-		&[data-isopen="true"] {
-			border-radius: 0 @border-radius @border-radius 0;
 		}
 	}
 
