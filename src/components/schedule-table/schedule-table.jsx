@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './schedule-table.less';
 import DateIndicator from '../date-indicator/date-indicator.jsx';
 import moment from 'moment';
-import VisitorCart from '../visitor-cart/visitor-cart.jsx';
+import VisitorCartLink from '../visitor-cart/visitor-cart.jsx';
 
 export default function ScheduleTable() {
 	const [date, setDate] = useState(moment());
@@ -23,9 +23,15 @@ export default function ScheduleTable() {
 				<tr className='schedule-table__row'>
 					<th data-header-order='first'>12:00</th>
 					<th data-header-order='second'>
-						<VisitorCart name={'Денні Сінс'} subscriptionCounter={5} />
-						<VisitorCart name={'Danny Sins'} subscriptionCounter={5} />
-						<VisitorCart name={'Danny Sins'} subscriptionCounter={5} />
+						<VisitorCartLink
+							visitorId={0}
+							linkUrl={`/profile/${0}`}
+							name={'Денні Сінс lorem Денні Сінс lorem Денні Сінс'}
+							subscriptionCounter={1}
+							showDoneStatus={true}
+						/>
+						<VisitorCartLink visitorId={2} name={'Jonny Silverhand'} subscriptionCounter={0} />
+						<VisitorCartLink visitorId={3} name={'Olivia Stinks'} subscriptionCounter={1} />
 					</th>
 
 				</tr>
