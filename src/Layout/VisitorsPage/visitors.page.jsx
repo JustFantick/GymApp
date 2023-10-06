@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './visitors.page.less';
 import SearchField from '../../components/search-field/search-field.jsx';
-import VisitorCart from '../../components/visitor-cart/visitor-cart.jsx';
+import VisitorCartLink from '../../components/visitor-cart/visitor-cart.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
 import PageContainer from '../../components/page-container/page-container.jsx';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -23,11 +23,10 @@ export default function VisitorsPage() {
 								li :
 								li.name.toLowerCase().includes(searchValue.toLowerCase());
 						}).map((li) => (
-							<VisitorCart key={li.id}
-								linkUrl={`/profile/${li.id}`}
+							<VisitorCartLink key={li.id}
 								name={li.name}
+								visitorId={li.id}
 								subscriptionCounter={li.subscription}
-								showSubscriptionCounter={false}
 							/>
 						))
 					}
