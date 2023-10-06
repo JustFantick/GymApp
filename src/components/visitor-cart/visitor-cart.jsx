@@ -7,7 +7,6 @@ import DoneIcon from '../../img/done-icon.svg';
 export default function VisitorCartLink({
 	name,
 	visitorId,
-	linkUrl,
 	subscriptionCounter,
 	theme = "green",
 	showDoneStatus = false,
@@ -35,7 +34,7 @@ export default function VisitorCartLink({
 		</div>;
 
 	return (
-		<NavLink to={linkUrl} onClick={(e) => navigationOnCLick(e)}>
+		<NavLink to={`/profile/${visitorId}`} onClick={(e) => navigationOnCLick(e)}>
 			<div
 				className={`visitor-cart ${expiringStatus} ${theme}`}
 				onClick={() => setIsDone(!isDone)}
