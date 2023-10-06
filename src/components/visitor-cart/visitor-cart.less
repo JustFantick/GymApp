@@ -2,7 +2,11 @@
 
 .visitor-cart {
 	border-radius: @border-radius;
-	padding: 6px 12px;
+	padding: 10px 15px;
+
+	&[data-reduce-padding="true"] {
+		padding: 6px 12px;
+	}
 
 	display: flex;
 	align-items: center;

@@ -11,6 +11,7 @@ export default function VisitorCartLink({
 	subscriptionCounter,
 	theme = "green",
 	showDoneStatus = false,
+	reducePadding = false,
 }) {
 	const [isDone, setIsDone] = useState(false);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
@@ -38,6 +39,7 @@ export default function VisitorCartLink({
 			<div
 				className={`visitor-cart ${expiringStatus} ${theme}`}
 				onClick={() => setIsDone(!isDone)}
+				data-reduce-padding={reducePadding}
 			>
 				<div className={`visitor-cart__name ${isDone && 'line-through'}`}>
 					{name}
@@ -56,6 +58,7 @@ function VisitorCart({
 	subscriptionCounter,
 	onClick,
 	theme = "green",
+	reducePadding = false,
 }) {
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
@@ -63,6 +66,7 @@ function VisitorCart({
 		<div
 			className={`visitor-cart ${expiringStatus} ${theme}`}
 			onClick={onClick}
+			data-reduce-padding={reducePadding}
 		>
 			<div className="visitor-cart__name">{name}</div>
 
