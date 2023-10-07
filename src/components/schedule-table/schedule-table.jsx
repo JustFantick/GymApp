@@ -4,6 +4,7 @@ import DateIndicator from '../date-indicator/date-indicator.jsx';
 import moment from 'moment';
 import VisitorCartLink from '../visitor-cart/visitor-cart.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
+import PopupDatePicker from '../popup-date-picker/popup-date-picker.jsx';
 
 export default function ScheduleTable() {
 	const [date, setDate] = useState(moment());
@@ -24,48 +25,59 @@ export default function ScheduleTable() {
 	useEffect(() => {
 		const temp = [];
 		visitorsList.forEach(visitorObj => {
-			if (visitorObj.schedule.find(d => date.day() == d.date).isActive) temp.push(visitorObj);
+			if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) temp.push(visitorObj);
 		});
 		setTodaysVisitors(temp);
-	}, []);
+	}, [date]);
+
+	const [isDatePopupOpen, setIsDatePopupOpen] = useState(false);
 
 	return (
-		<table className="schedule-table">
-			<thead>
-				<tr className='schedule-table__row'>
-					<th data-header-order='first'>
-						<DateIndicator date={date.date()} weekday={date.day()} />
-					</th>
-					<th data-header-order='second'></th>
-				</tr>
+		<>
+			<table className="schedule-table">
+				<thead>
+					<tr className='schedule-table__row'>
+						<th data-header-order='first' onClick={() => setIsDatePopupOpen(true)}>
+							<DateIndicator date={date.date()} weekday={date.day()} />
+						</th>
+						<th data-header-order='second'></th>
+					</tr>
 
-			</thead>
+				</thead>
 
-			<tbody>
-				{
-					hoursArr.map((hour, id) => (
-						<tr className='schedule-table__row' key={id}>
-							<th data-header-order='first'>{hour}</th>
-							<th data-header-order='second'>
-								{
-									todaysVisitors.filter(v => v.schedule[0].time == hour).map(v => (
-										<VisitorCartLink key={v.id}
-											visitorId={v.id}
-											name={v.name}
-											subscriptionCounter={v.subscription}
-											showDoneStatus={true}
-											reducePadding={true}
-										/>
-									))
-								}
-							</th>
+				<tbody>
+					{
+						hoursArr.map((hour, id) => (
+							<tr className='schedule-table__row' key={id}>
+								<th data-header-order='first'>{hour}</th>
+								<th data-header-order='second'>
+									{
+										todaysVisitors.filter(v => v.schedule[0].time == hour).map(v => (
+											<VisitorCartLink key={v.id}
+												visitorId={v.id}
+												name={v.name}
+												subscriptionCounter={v.subscription}
+												showDoneStatus={true}
+												reducePadding={true}
+											/>
+										))
+									}
+								</th>
 
-						</tr>
-					))
-				}
+							</tr>
+						))
+					}
 
-			</tbody>
+				</tbody>
 
-		</table>
+			</table>
+
+			<PopupDatePicker
+				isOpen={isDatePopupOpen}
+				closePopup={() => setIsDatePopupOpen(false)}
+				dateValue={date}
+				setDate={setDate}
+			/>
+		</>
 	)
 }
