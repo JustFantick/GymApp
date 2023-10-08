@@ -52,7 +52,7 @@ export default function VisitorCartLink({
 	)
 }
 
-function VisitorCart({
+export function VisitorCart({
 	name,
 	subscriptionCounter,
 	onClick,
