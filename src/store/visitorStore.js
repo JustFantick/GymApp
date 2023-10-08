@@ -384,10 +384,14 @@ const visitorStore = immer((set, get) => ({
 
 	todaysVisitors: [],
 	setTodaysVisitors: (visitorsArray) => {
-		state.todaysVisitors = visitorsArray;
+		set((state) => {
+			state.todaysVisitors = visitorsArray;
+		});
 	},
 	addTodaysVisitor: (visitorObj) => {
-		state.todaysVisitors.push(visitorObj);
+		set((state) => {
+			state.todaysVisitors.push(visitorObj);
+		});
 	},
 }));
 
