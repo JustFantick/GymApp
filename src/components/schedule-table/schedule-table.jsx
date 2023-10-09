@@ -5,6 +5,9 @@ import moment from 'moment';
 import VisitorCartLink from '../visitor-cart/visitor-cart.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
 import PopupDatePicker from '../popup-date-picker/popup-date-picker.jsx';
+import FloatingAddButton from '../floating-add-btn/floating-add-btn.jsx';
+
+import PopupAddVisitor from '../popup-add-visitor/popup-add-visitor.jsx';
 
 export default function ScheduleTable() {
 	const [date, setDate] = useState(moment());
@@ -19,18 +22,26 @@ export default function ScheduleTable() {
 	];
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
-	//const setTodaysVisitors = useVisitorsStore(state => state.setTodaysVisitors);
-	const [todaysVisitors, setTodaysVisitors] = useState([]);
+
+	const todaysVisitors = useVisitorsStore(state => state.todaysVisitors);
+	const setTodaysVisitors = useVisitorsStore(state => state.setTodaysVisitors);
+	const addTodaysVisitor = useVisitorsStore(state => state.addTodaysVisitor);
 
 	useEffect(() => {
 		const temp = [];
 		visitorsList.forEach(visitorObj => {
-			if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) temp.push(visitorObj);
+			if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
+				temp.push({
+					...visitorObj,
+					time: visitorObj.schedule.find(d => date.day() == d.date).time,
+				});
+			}
 		});
 		setTodaysVisitors(temp);
 	}, [date]);
 
 	const [isDatePopupOpen, setIsDatePopupOpen] = useState(false);
+	const [isAddVisitorPopupOpen, setIsAddVisitorPopupOpen] = useState(false);
 
 	return (
 		<>
@@ -52,7 +63,7 @@ export default function ScheduleTable() {
 								<th data-header-order='first'>{hour}</th>
 								<th data-header-order='second'>
 									{
-										todaysVisitors.filter(v => v.schedule[0].time == hour).map(v => (
+										todaysVisitors.filter(v => v.time == hour).map(v => (
 											<VisitorCartLink key={v.id}
 												visitorId={v.id}
 												name={v.name}
@@ -77,6 +88,14 @@ export default function ScheduleTable() {
 				closePopup={() => setIsDatePopupOpen(false)}
 				dateValue={date}
 				setDate={setDate}
+			/>
+
+			<FloatingAddButton onClick={() => setIsAddVisitorPopupOpen(true)} />
+
+			<PopupAddVisitor
+				isOpen={isAddVisitorPopupOpen}
+				closePopup={() => setIsAddVisitorPopupOpen(false)}
+				addVisitorFunc={addTodaysVisitor}
 			/>
 		</>
 	)
