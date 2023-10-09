@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './visitor-cart.less';
 import { NavLink } from 'react-router-dom';
 import { useVisitorsStore } from '../../store/visitorStore';
@@ -42,10 +42,9 @@ export default function VisitorCartLink({
 		<NavLink to={`/profile/${visitorId}`} onClick={(e) => navigationOnCLick(e)}>
 			<div
 				className={`visitor-cart ${expiringStatus} ${theme}`}
-				//onClick={() => setIsDone(!isDone)}
 				data-reduce-padding={reducePadding}
 			>
-				<div className={`visitor-cart__name ${isDone && 'line-through'}`}>
+				<div className={`visitor-cart__name ${showDoneStatus && isDone && 'line-through'}`}>
 					{name}
 				</div>
 
