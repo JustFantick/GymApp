@@ -28,17 +28,31 @@ export default function ScheduleTable() {
 	const addTodaysVisitor = useVisitorsStore(state => state.addTodaysVisitor);
 
 	useEffect(() => {
-		const temp = [];
-		visitorsList.forEach(visitorObj => {
-			if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
+		if (todaysVisitors.length == 0) {
+			const temp = [];
+			visitorsList.forEach(visitorObj => {
+				if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
+					temp.push({
+						...visitorObj,
+						time: visitorObj.schedule.find(d => date.day() == d.date).time,
+						isCame: false,
+					});
+				}
+			});
+			setTodaysVisitors(temp);
+		} else {
+			const temp = [];
+			todaysVisitors.forEach(visitorObj => {
+				const visitorFromVisitorsList = visitorsList.find(v => v.id == visitorObj.id);
+
 				temp.push({
 					...visitorObj,
-					time: visitorObj.schedule.find(d => date.day() == d.date).time,
+					subscription: visitorFromVisitorsList.subscription,
 				});
-			}
-		});
-		setTodaysVisitors(temp);
-	}, [date]);
+			});
+			setTodaysVisitors(temp);
+		}
+	}, [visitorsList]);
 
 	const [isDatePopupOpen, setIsDatePopupOpen] = useState(false);
 	const [isAddVisitorPopupOpen, setIsAddVisitorPopupOpen] = useState(false);

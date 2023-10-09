@@ -12,7 +12,8 @@ export default function VisitorCartLink({
 	showDoneStatus = false,
 	reducePadding = false,
 }) {
-	const [isDone, setIsDone] = useState(false);
+	const isDone = useVisitorsStore(state => state.todaysVisitors.find(v => v.id == visitorId).isCame);
+	const switchTodaysVisitorAttendance = useVisitorsStore(state => state.switchTodaysVisitorAttendance);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
 	function navigationOnCLick(e) {
@@ -22,14 +23,18 @@ export default function VisitorCartLink({
 	}
 
 	const setVisitorSubscription = useVisitorsStore(state => state.setVisitorSubscription);
-	function statusChangeHandler(e) {
-		setIsDone(!isDone);
-		e.target.closest('.visitor-cart__done-status').classList.toggle('active');
-		setVisitorSubscription(visitorId, subscriptionCounter - 1);
+	function statusChangeHandler() {
+		if (isDone) {
+			switchTodaysVisitorAttendance(visitorId);
+			setVisitorSubscription(visitorId, subscriptionCounter + 1);
+		} else {
+			switchTodaysVisitorAttendance(visitorId);
+			setVisitorSubscription(visitorId, subscriptionCounter - 1);
+		}
 	}
 
 	const doneStatusBlock =
-		<div className="visitor-cart__done-status" onClick={e => statusChangeHandler(e)}>
+		<div className={`visitor-cart__done-status ${isDone && 'active'}`} onClick={statusChangeHandler}>
 			<img src={DoneIcon} alt="done-icon.svg" />
 		</div>;
 
@@ -37,7 +42,7 @@ export default function VisitorCartLink({
 		<NavLink to={`/profile/${visitorId}`} onClick={(e) => navigationOnCLick(e)}>
 			<div
 				className={`visitor-cart ${expiringStatus} ${theme}`}
-				onClick={() => setIsDone(!isDone)}
+				//onClick={() => setIsDone(!isDone)}
 				data-reduce-padding={reducePadding}
 			>
 				<div className={`visitor-cart__name ${isDone && 'line-through'}`}>
