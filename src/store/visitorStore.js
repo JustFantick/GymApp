@@ -388,6 +388,13 @@ const visitorStore = immer((set, get) => ({
 			state.todaysVisitors = visitorsArray;
 		});
 	},
+	switchTodaysVisitorAttendance: (visitorId) => {
+		const visitorObj = get().todaysVisitors.filter(v => v.id == visitorId)[0];
+		const visitorIndex = get().todaysVisitors.indexOf(visitorObj);
+		set((state) => {
+			state.todaysVisitors[visitorIndex].isCame = !state.todaysVisitors[visitorIndex].isCame
+		});
+	},
 	addTodaysVisitor: (visitorObj) => {
 		set((state) => {
 			state.todaysVisitors.push(visitorObj);
