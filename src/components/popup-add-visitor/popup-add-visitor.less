@@ -1,0 +1,68 @@
+@import url('../../styles/useful');
+
+.clock-slide {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 13px;
+
+		h4 {
+			color: @gray;
+			font-size: 20px;
+		}
+
+		span {
+			@size: 22px;
+			height: @size;
+			width: @size;
+
+			position: relative;
+
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 50%;
+
+				width: 80%;
+				height: 2px;
+				border-radius: 5px;
+				background-color: @gray;
+
+				transform-origin: right;
+
+			}
+
+			&::before {
+				transform: translate(-50%, -50%) rotate(35deg);
+			}
+
+			&::after {
+				transform: translate(-50%, calc(-50% - 1px)) rotate(-35deg);
+			}
+		}
+	}
+}
+
+.add-visitor-slide {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 20px;
+	min-height: 100%;
+
+	&__visitors-list {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		overflow-y: auto;
+		max-height: 60vh;
+	}
+}
