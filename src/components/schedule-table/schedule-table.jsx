@@ -22,10 +22,28 @@ export default function ScheduleTable() {
 	];
 
 	const visitorsList = useVisitorsStore(state => state.visitors);
-
 	const todaysVisitors = useVisitorsStore(state => state.todaysVisitors);
 	const setTodaysVisitors = useVisitorsStore(state => state.setTodaysVisitors);
 	const addTodaysVisitor = useVisitorsStore(state => state.addTodaysVisitor);
+
+	const [isTodayDate, setIsTodayDate] = useState(true);
+	const [visitorsToRender, setVisitorsToRender] = useState([]);
+
+	useEffect(() => {
+		if (date.dayOfYear() != moment().dayOfYear()) {
+			setIsTodayDate(false);
+
+			const temp = [];
+			visitorsList.forEach(visitorObj => {
+				if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
+					temp.push(visitorObj);
+				}
+			});
+			setVisitorsToRender(temp);
+		} else {
+			setIsTodayDate(true);
+		}
+	}, [date]);
 
 	useEffect(() => {
 		if (todaysVisitors.length == 0) {
@@ -77,15 +95,25 @@ export default function ScheduleTable() {
 								<th data-header-order='first'>{hour}</th>
 								<th data-header-order='second'>
 									{
-										todaysVisitors.filter(v => v.time == hour).map(v => (
-											<VisitorCartLink key={v.id}
-												visitorId={v.id}
-												name={v.name}
-												subscriptionCounter={v.subscription}
-												showDoneStatus={true}
-												reducePadding={true}
-											/>
-										))
+										isTodayDate ?
+											todaysVisitors.filter(v => v.time == hour).map(v => (
+												<VisitorCartLink key={v.id}
+													visitorId={v.id}
+													name={v.name}
+													subscriptionCounter={v.subscription}
+													showDoneStatus={true}
+													reducePadding={true}
+												/>
+											))
+											:
+											visitorsToRender.filter(v => v.schedule.find(d => date.day() == d.date).time == hour).map(v => (
+												<VisitorCartLink key={v.id}
+													visitorId={v.id}
+													name={v.name}
+													subscriptionCounter={v.subscription}
+													reducePadding={true}
+												/>
+											))
 									}
 								</th>
 
@@ -104,13 +132,18 @@ export default function ScheduleTable() {
 				setDate={setDate}
 			/>
 
-			<FloatingAddButton onClick={() => setIsAddVisitorPopupOpen(true)} />
+			{
+				isTodayDate &&
+				<>
+					<FloatingAddButton onClick={() => setIsAddVisitorPopupOpen(true)} />
 
-			<PopupAddVisitor
-				isOpen={isAddVisitorPopupOpen}
-				closePopup={() => setIsAddVisitorPopupOpen(false)}
-				addVisitorFunc={addTodaysVisitor}
-			/>
+					<PopupAddVisitor
+						isOpen={isAddVisitorPopupOpen}
+						closePopup={() => setIsAddVisitorPopupOpen(false)}
+						addVisitorFunc={addTodaysVisitor}
+					/>
+				</>
+			}
 		</>
 	)
 }
