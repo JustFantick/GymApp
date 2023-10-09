@@ -8,6 +8,7 @@ import PopupDatePicker from '../popup-date-picker/popup-date-picker.jsx';
 import FloatingAddButton from '../floating-add-btn/floating-add-btn.jsx';
 
 import PopupAddVisitor from '../popup-add-visitor/popup-add-visitor.jsx';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export default function ScheduleTable() {
 	const [date, setDate] = useState(moment());
@@ -75,6 +76,8 @@ export default function ScheduleTable() {
 	const [isDatePopupOpen, setIsDatePopupOpen] = useState(false);
 	const [isAddVisitorPopupOpen, setIsAddVisitorPopupOpen] = useState(false);
 
+	const [listRef] = useAutoAnimate();
+
 	return (
 		<>
 			<table className="schedule-table">
@@ -93,7 +96,7 @@ export default function ScheduleTable() {
 						hoursArr.map((hour, id) => (
 							<tr className='schedule-table__row' key={id}>
 								<th data-header-order='first'>{hour}</th>
-								<th data-header-order='second'>
+								<th data-header-order='second' ref={listRef}>
 									{
 										isTodayDate ?
 											todaysVisitors.filter(v => v.time == hour).map(v => (
