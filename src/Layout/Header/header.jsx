@@ -6,13 +6,24 @@ import { MotionMenuBurger } from '../../components/menu-burger/menu-burger.jsx';
 import { MotionNavigation } from '../../components/navigation/navigation.jsx';
 import { burgerAnim, headerTitleAnim, navigationAnim } from '../../motionConsts/motionConsts';
 import { homePath, visitorsPath, registrationPath, calendarPath } from '../../Layout/routing.jsx';
+import { useScrollLock } from '../useScrollLock.jsx';
 
 export default function Header() {
 	const [menuStatus, setMenuStatus] = useState(false);
-	const menuOnClick = () => setMenuStatus(!menuStatus);
+	const { lockScroll, unlockScroll } = useScrollLock();
+
+	//listens "menuStatus" changes and locks scroll while it's open
+	useEffect(() => {
+		if (menuStatus) {
+			lockScroll();
+		} else {
+			unlockScroll();
+		}
+	}, [menuStatus]);
 
 	const headerBody = useRef(null);
 	const headerContainer = useRef(null);
+
 	useEffect(() => {
 		headerContainer.current.style.height = headerBody.current.clientHeight + 'px';
 	}, []);
@@ -23,6 +34,7 @@ export default function Header() {
 		{ text: 'Реєстрація ', isCurrent: false, linkUrl: registrationPath },
 		{ text: 'Календар ', isCurrent: false, linkUrl: calendarPath },
 	]);
+
 	function updateNavItems(itemId) {
 		setNavItems(navItems.map((item, id) => {
 			if (id === itemId) {
@@ -37,7 +49,7 @@ export default function Header() {
 	return (
 		<header className='header' ref={headerContainer}>
 			<motion.div className="header__body header-body" ref={headerBody}
-				onClick={menuOnClick}
+				onClick={() => setMenuStatus(!menuStatus)}
 				initial="disabled"
 				animate={menuStatus ? "enabled" : "disabled"}
 			>

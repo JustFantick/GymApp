@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './popup-date-picker.less';
 import { motion } from 'framer-motion';
 import { StaticDatePicker } from '@mui/x-date-pickers';
 import { CalendarLocalizator } from '../calendar/calendar-localizator.jsx';
+import { useScrollLock } from '../../Layout/useScrollLock.jsx';
 
 export default function PopupDatePicker({ isOpen, closePopup, dateValue, setDate }) {
+	const { lockScroll, unlockScroll } = useScrollLock();
+
+	useEffect(() => {
+		if (isOpen) {
+			lockScroll();
+		} else {
+			unlockScroll();
+		}
+	}, [isOpen]);
+
 	function outBodyClickHandler(e) {
 		if (!e.target.closest('.popup-date-picker__body')) closePopup();
 	}
