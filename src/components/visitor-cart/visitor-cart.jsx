@@ -12,7 +12,8 @@ export default function VisitorCartLink({
 	showDoneStatus = false,
 	reducePadding = false,
 }) {
-	const isDone = useVisitorsStore(state => state.todaysVisitors.find(v => v.id == visitorId).isCame);
+	const visitorObj = useVisitorsStore(state => state.todaysVisitors.find(v => v.id == visitorId));
+	const isDone = visitorObj && visitorObj.hasOwnProperty('isCame') ? visitorObj.isCame : false;
 	const switchTodaysVisitorAttendance = useVisitorsStore(state => state.switchTodaysVisitorAttendance);
 	const expiringStatus = subscriptionCounter <= 0 ? 'expired-subscription' : '';
 
