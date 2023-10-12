@@ -1,95 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './home.page.less';
-import PageContainer from '../../components/page-container/page-container.jsx';
-import HourSchedule from '../../components/hour-schedule/hour-schedule.jsx';
-import { useVisitorsStore } from '../../store/visitorStore.js';
-import { SectionTitle } from '../../components/section-title/section-title.jsx';
-import PopupAddVisitor from '../../components/popup-add-visitor/popup-add-visitor.jsx';
+import ScheduleTable from '../../components/schedule-table/schedule-table.jsx';
 
 export default function HomePage() {
-	const date = new Date();
-	const weekDaysArr = ['Неділя', 'Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота'];
-
-	const visitorsList = useVisitorsStore(state => state.visitors);
-	const [todayVisitors, setTodayVisitors] = useState([]);
-
-	useEffect(() => {
-		if (todayVisitors.length !== 0) {
-			setTodayVisitors(
-				todayVisitors.map(visitor => {
-					return { ...visitor, subscription: visitorsList.find(v => v.id === visitor.id).subscription }
-				})
-			)
-		} else {
-			setTodayVisitors(
-				visitorsList.filter(li => li.schedule[0].isActive === true).map(li => {
-					return { ...li, todaysTime: li.schedule[0].time };
-				})
-			);
-		}
-
-	}, [visitorsList]);
-
-	function setVisitorsList(userId) {
-		setTodayVisitors(
-			todayVisitors.filter(li => userId !== li.id)
-		);
-	}
-
-	const hoursArr = [...new Set(todayVisitors.map(el => el.todaysTime))].sort();
-
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
-	const [popupHour, setPopupHour] = useState('12:00');
-
-	function openPopup(hour) {
-		setIsPopupOpen(true);
-		setPopupHour(hour);
-	}
-
-	function addVisitor(visitorObj) {
-		setIsPopupOpen(false);
-		setTodayVisitors([
-			...todayVisitors,
-			{
-				...visitorObj,
-				todaysTime: popupHour,
-			}
-		]);
-	}
-
 	return (
-		<>
-			<main className='home'>
-				<PageContainer>
-					<div className="home__body">
-						<SectionTitle>
-							{`${weekDaysArr[date.getDay()]}, ${date.getDate()}`}
-						</SectionTitle>
+		<main className='home'>
+			<div className="home__body">
+				<ScheduleTable />
 
-						{
-							hoursArr.map((hour, id) => (
-								<HourSchedule key={id}
-									removeVisitor={setVisitorsList}
-									addBtnOnClick={() => openPopup(hour)}
-									hour={hour}
-									visitorsList={
-										todayVisitors.filter(el => el.todaysTime === hour)
-									}
-								/>
-							))
-						}
-					</div>
+			</div>
 
-				</PageContainer>
-
-			</main>
-
-			<PopupAddVisitor
-				visitorsList={visitorsList.filter(li => todayVisitors.map(el => el.id).indexOf(li.id) == -1)}
-				isOpen={isPopupOpen}
-				closePopup={() => setIsPopupOpen(false)}
-				addVisitorFunc={addVisitor}
-			/>
-		</>
+		</main>
 	)
 }
