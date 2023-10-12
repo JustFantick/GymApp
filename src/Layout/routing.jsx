@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { createHashRouter, Outlet } from 'react-router-dom';
 import Header from './header/header.jsx';
 import "../styles/styles.less";
 
-import HomePage from './HomePage/home.page.jsx';
-import VisitorsPage from './VisitorsPage/visitors.page.jsx';
-import RegistrationPage from './RegistrationPage/registration.page.jsx';
-import ErrorPage from './ErrorPage/error.page.jsx';
-import CalendarPage from './CalendarPage/calendar.page.jsx';
-import ProfilePage from './ProfilePage/profile.page.jsx';
+const HomePage = lazy(() => import('./HomePage/home.page.jsx'));
+const VisitorsPage = lazy(() => import('./VisitorsPage/visitors.page.jsx'));
+const RegistrationPage = lazy(() => import('./RegistrationPage/registration.page.jsx'));
+const CalendarPage = lazy(() => import('./CalendarPage/calendar.page.jsx'));
+const ProfilePage = lazy(() => import('./ProfilePage/profile.page.jsx'));
+const ErrorPage = lazy(() => import('./ErrorPage/error.page.jsx'));
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
@@ -55,7 +55,9 @@ function Layout() {
 		<div className='wrapper'>
 			<Header></Header>
 
-			<Outlet></Outlet>
+			<Suspense>
+				<Outlet />
+			</Suspense>
 
 		</div>
 	);
