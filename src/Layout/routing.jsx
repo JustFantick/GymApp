@@ -1,6 +1,8 @@
 import React from 'react';
-import { createHashRouter } from 'react-router-dom';
-import { Layout } from './layout.jsx';
+import { createHashRouter, Outlet } from 'react-router-dom';
+import Header from './header/header.jsx';
+import "../styles/styles.less";
+
 import HomePage from './HomePage/home.page.jsx';
 import VisitorsPage from './VisitorsPage/visitors.page.jsx';
 import RegistrationPage from './RegistrationPage/registration.page.jsx';
@@ -47,3 +49,14 @@ export const router = createHashRouter([
 		]
 	}
 ]);
+
+function Layout() {
+	return (
+		<div className='wrapper'>
+			<Header></Header>
+
+			<Outlet></Outlet>
+
+		</div>
+	);
+};
