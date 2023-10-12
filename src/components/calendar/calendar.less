@@ -1,54 +1,58 @@
 @import url('../../styles/useful');
 
-//Calendar styles override
-.MuiDateCalendar-root {
-	width: 100% !important;
-}
 
-.MuiPickersCalendarHeader-root div {
-	font-size: 22px !important;
-	color: @dark-text;
-	text-transform: capitalize;
-}
+.calendar-page {
 
-.MuiIconButton-root {
-	font-size: 2rem !important;
-}
+	//Calendar styles override
+	.MuiDateCalendar-root {
+		width: 100% !important;
+	}
 
-.MuiDayCalendar-header,
-.MuiDayCalendar-weekContainer {
-	margin: 7px 0px !important;
-	justify-content: space-evenly !important;
-}
+	.MuiPickersCalendarHeader-root div {
+		font-size: 22px !important;
+		color: @dark-text;
+		text-transform: capitalize;
+	}
 
-.MuiDayCalendar-weekContainer:first-child {
-	margin-top: 0px !important;
-}
+	.MuiIconButton-root {
+		font-size: 2rem !important;
+	}
 
-.MuiDayCalendar-weekDayLabel {
-	font-size: 1.1rem !important;
-}
+	.MuiDayCalendar-header,
+	.MuiDayCalendar-weekContainer {
+		margin: 7px 0px !important;
+		justify-content: space-evenly !important;
+	}
 
-//days
-.MuiPickersDay-root.Mui-selected:hover,
-.MuiPickersDay-root.Mui-selected {
-	color: @gray;
-	background-color: @green !important;
-	font-weight: 600;
-}
+	.MuiDayCalendar-weekContainer:first-child {
+		margin-top: 0px !important;
+	}
 
-.MuiPickersDay-root {
-	font-size: 0.9rem !important;
-}
+	.MuiDayCalendar-weekDayLabel {
+		font-size: 1.1rem !important;
+	}
 
-.MuiDayCalendar-weekDayLabel {
-	color: @dark-text !important;
-	font-family: 'Inter' !important;
-	font-weight: 600 !important;
+	//days
+	.MuiPickersDay-root.Mui-selected:hover,
+	.MuiPickersDay-root.Mui-selected {
+		color: @gray;
+		background-color: @green !important;
+		font-weight: 600;
+	}
 
-	&[aria-label="субота"],
-	&[aria-label="неділя"] {
-		color: @green !important;
-		opacity: 0.8;
+	.MuiPickersDay-root {
+		font-size: 0.9rem !important;
+	}
+
+	.MuiDayCalendar-weekDayLabel {
+		color: @dark-text !important;
+		font-family: 'Inter' !important;
+		font-weight: 600 !important;
+
+		&[aria-label="субота"],
+		&[aria-label="неділя"] {
+			color: @green !important;
+			opacity: 0.8;
+		}
 	}
 }
