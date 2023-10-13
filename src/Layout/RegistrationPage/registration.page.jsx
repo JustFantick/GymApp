@@ -7,10 +7,10 @@ import { InputSubscription } from '../../components/form-inputs/input-subscripti
 import Schedule from '../../components/schedule/schedule.jsx';
 import SubmitButton from '../../components/submit-button/submit-button.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
+import { Toaster, toast } from 'sonner';
 
 export default function RegistrationPage() {
 	const [name, setName] = useState('');
-	const [nameLabel, setNameLabel] = useState('ПІБ');
 	const [isNameValid, setIsNameValid] = useState(true);
 
 	const [subscription, setSubscription] = useState(0);
@@ -19,31 +19,33 @@ export default function RegistrationPage() {
 	const [schedule, setSchedule] = useState(scheduleTemplate);
 
 	const addNewVisitor = useVisitorsStore((state) => state.addNewVisitor);
+
+	function setDefaultStateValues() {
+		setName('');
+		setIsNameValid(true);
+		setSubscription(0);
+		setSchedule(scheduleTemplate);
+	}
+
 	function onSubmitHandler() {
 		const scrollToTheTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
 		if (name === '') {
-			setNameLabel('Заповніть поле');
+			toast.error('Заповніть поле');
 			setIsNameValid(false);
 			scrollToTheTop();
 		} else if (/^\d+$/.test(name)) {
-			setNameLabel('Поле не повинно містити лише числа');
+			toast.error('Поле не повинно містити лише числа');
 			setIsNameValid(false);
 			scrollToTheTop();
 		}
 		else {
+			toast.success(`Успішно зареэстровано: ${name}`);
+
 			setIsNameValid(true);
 			addNewVisitor(name, subscription, schedule);
 			setDefaultStateValues();
 		}
-	}
-
-	function setDefaultStateValues() {
-		setName('');
-		setNameLabel('ПІБ');
-		setIsNameValid(true);
-		setSubscription(0);
-		setSchedule(scheduleTemplate);
 	}
 
 	return (
@@ -54,7 +56,7 @@ export default function RegistrationPage() {
 
 					<InputName
 						name={name} setName={setName}
-						label={nameLabel} isValid={isNameValid}
+						label={'ПІБ'} isValid={isNameValid}
 					/>
 					<InputSubscription subscriptionValue={subscription} setSubscription={setSubscription} />
 
@@ -69,6 +71,9 @@ export default function RegistrationPage() {
 
 				<div className="registration__sumbit-btn">
 					<SubmitButton onSubmit={onSubmitHandler}>Зареэструвати</SubmitButton>
+
+					<Toaster position="bottom-center" richColors />
+
 				</div>
 
 			</form>
