@@ -6,7 +6,7 @@ export default function QuickIncreaseButton({ coefficient, onClick, theme = 'gre
 	return (
 		<motion.div className={`quick-increase-button ${theme === 'green' ? '' : 'yellow'}`}
 			whileHover={{ scale: 1.1 }}
-			whileTap={{ scale: 0.95 }}
+			whileTap={{ scale: 0.9 }}
 			onClick={onClick}
 		>
 			{`+${coefficient}`}
