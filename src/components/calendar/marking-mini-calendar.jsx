@@ -75,19 +75,22 @@ export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 	}
 
 	return (
-		<CalendarLocalizator>
-			<DateCalendar
-				readOnly
-				value={moment()}
-				views={['day']}
+		<div className='marking-mini-calendar'>
+			<CalendarLocalizator>
+				<DateCalendar
+					readOnly
+					value={moment()}
+					views={['day']}
 
-				slots={{
-					day: DayToRender,
-				}}
-				slotProps={{
-					day: { weekdaysList }
-				}}
-			/>
-		</CalendarLocalizator>
+					slots={{
+						day: DayToRender,
+					}}
+					slotProps={{
+						day: { weekdaysList }
+					}}
+				/>
+			</CalendarLocalizator>
+
+		</div>
 	)
 }

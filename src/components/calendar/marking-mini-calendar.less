@@ -1,1 +1,36 @@
-.MuiPickersArrowSwitcher-root {}
+@import url('../../styles/useful');
+
+.marking-mini-calendar {
+	.MuiPickersLayout-root {
+		border-radius: 10px;
+		background-color: #f2f2f2;
+	}
+
+	.MuiPickersLayout-toolbar,
+	.MuiPickersLayout-actionBar {
+		display: none;
+	}
+
+	.MuiPickersCalendarHeader-root div {
+		color: @dark-text;
+		font-weight: 500;
+		text-transform: capitalize;
+	}
+
+	.MuiPickersDay-root.Mui-selected:hover,
+	.MuiPickersDay-root.Mui-selected {
+		color: @gray;
+		background-color: @green !important;
+		font-weight: 600;
+	}
+
+	.MuiDayCalendar-weekDayLabel {
+		color: @dark-text !important;
+
+		&[aria-label="субота"],
+		&[aria-label="неділя"] {
+			color: @green !important;
+			opacity: 0.8;
+		}
+	}
+}
