@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import './form-inputs.less';
 import { InputWrapper } from "./input-wrapper.jsx";
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
 import PopupContainer from "../popup-container/popup-container.jsx";
