@@ -5,6 +5,10 @@
 	border-radius: @border-radius;
 	background-color: @gray;
 
+	&.non-valid {
+		background-color: #fef0ef;
+	}
+
 	input,
 	label {
 		background-color: transparent;
@@ -19,6 +23,7 @@
 
 		input {
 			font-size: 20px;
+			color: @dark-text;
 
 			&::placeholder {
 				font-size: 28px;
@@ -27,15 +32,6 @@
 		}
 
 		transition: color 0.3s ease-in;
-
-		&.non-valid {
-			color: @yellow;
-		}
-
-		&.valid {
-			color: @dark-text;
-		}
-
 	}
 }
 

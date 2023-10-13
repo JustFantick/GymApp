@@ -1,11 +1,10 @@
 import React from "react";
-import './form-inputs.less';
 import { InputWrapper } from "./input-wrapper.jsx";
 
-export const InputName = ({ name = '', setName, label = 'ПІБ', isValid = true }) => {
+export const InputName = ({ name = '', setName, label = '', isValid = true }) => {
 	return (
-		<InputWrapper>
-			<label className={`input-wrapper__name-label ${isValid ? 'valid' : 'non-valid'}`}>
+		<InputWrapper isValid={isValid}>
+			<label className="input-wrapper__name-label">
 				{label}
 				<input
 					type="text" name="name"
