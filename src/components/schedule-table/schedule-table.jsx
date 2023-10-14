@@ -99,7 +99,7 @@ export default function ScheduleTable() {
 								<th data-header-order='second' ref={listRef}>
 									{
 										isTodayDate ?
-											todaysVisitors.filter(v => v.time == hour).map(v => (
+											todaysVisitors && todaysVisitors.filter(v => v.time == hour).map(v => (
 												<VisitorCartLink key={v.id}
 													visitorId={v.id}
 													name={v.name}
