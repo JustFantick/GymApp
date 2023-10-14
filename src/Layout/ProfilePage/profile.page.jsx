@@ -18,7 +18,7 @@ export default function ProfilePage() {
 	const [subscription, setSubscription] = useState(profile.subscription);
 	const [schedule, setSchedule] = useState(profile.schedule);
 
-	const weekdaysList = () => {
+	const getWeekdaysList = () => {
 		const result = [];
 		schedule.forEach(weekday => {
 			if (weekday.isActive) result.push(weekday.date);
@@ -31,17 +31,17 @@ export default function ProfilePage() {
 	const setVisitorSchedule = useVisitorsStore(state => state.setVisitorSchedule);
 
 	useEffect(() => {
-		setVisitorName(id, name);
+		if (name != profile.name) setVisitorName(id, name);
 	}, [name]);
 
 
 	useEffect(() => {
-		setVisitorSubscription(id, subscription);
+		if (subscription != profile.subscription) setVisitorSubscription(id, subscription);
 	}, [subscription]);
 
 
 	useEffect(() => {
-		setVisitorSchedule(id, schedule);
+		if (schedule != profile.schedule) setVisitorSchedule(id, schedule);
 	}, [schedule]);
 
 	return (
@@ -56,7 +56,7 @@ export default function ProfilePage() {
 				</div>
 
 				<div className="profile__section calendar">
-					<MarkingMiniCalendar weekdaysList={weekdaysList()} subscription={subscription} />
+					<MarkingMiniCalendar weekdaysList={getWeekdaysList()} subscription={subscription} />
 				</div>
 
 				<div className="profile__section schedule">
