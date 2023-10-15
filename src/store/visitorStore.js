@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { persist } from 'zustand/middleware';
 
-const visitorStore = immer((set, get) => ({
+const visitorStore = persist(immer((set, get) => ({
 	idCounter: 8,
 	incrementIdCounter: () => set((state) => { state.idCounter++ }),
 
@@ -400,6 +401,14 @@ const visitorStore = immer((set, get) => ({
 			state.todaysVisitors.push(visitorObj);
 		});
 	},
-}));
+})),
+	{
+		name: 'visitors store',
+		partialize: (state) =>
+			Object.fromEntries(
+				Object.entries(state).filter(([key]) => !['scheduleTemplate'].includes(key))
+			),
+	}
+);
 
 export const useVisitorsStore = create(visitorStore);
