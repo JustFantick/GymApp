@@ -383,6 +383,11 @@ const visitorStore = persist(immer((set, get) => ({
 	],
 
 
+	todayDate: null,
+	setTodayDate: (dateObj) => {
+		set(state => { state.todayDate = dateObj });
+	},
+
 	todaysVisitors: [],
 	setTodaysVisitors: (visitorsArray) => {
 		set((state) => {
