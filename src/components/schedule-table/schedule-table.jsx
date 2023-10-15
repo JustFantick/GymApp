@@ -109,7 +109,7 @@ export default function ScheduleTable() {
 												/>
 											))
 											:
-											visitorsToRender.filter(v => v.schedule.find(d => date.day() == d.date).time == hour).map(v => (
+											date.day() !== 0 && visitorsToRender.filter(v => v.schedule.find(d => date.day() == d.date).time == hour).map(v => (
 												<VisitorCartLink key={v.id}
 													visitorId={v.id}
 													name={v.name}
