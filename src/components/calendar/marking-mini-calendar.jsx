@@ -16,9 +16,16 @@ export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 		let startDate = moment();
 		let subscriptionCounter = subscription;
 
-		while (subscriptionCounter) {
-			if (weekdaysList.includes(startDate.weekday())) subscriptionCounter--;
-			startDate.add(1, 'day');
+		if (subscriptionCounter > 0) {
+			while (subscriptionCounter > 0) {
+				if (weekdaysList.includes(startDate.weekday())) subscriptionCounter--;
+				startDate.add(1, 'day');
+			}
+		} else if (subscriptionCounter < 0) {
+			while (subscriptionCounter < 0) {
+				if (weekdaysList.includes(startDate.weekday())) subscriptionCounter++;
+				startDate.subtract(1, 'day');
+			}
 		}
 		setLastSubscriptionDate(startDate);
 
