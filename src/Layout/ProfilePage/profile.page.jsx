@@ -48,7 +48,7 @@ export default function ProfilePage() {
 		<PageContainer>
 			<div className="profile">
 				<div className="profile__section">
-					<InputName name={name} setName={setName} />
+					<InputName name={name} setName={setName} label='ПІБ' />
 				</div>
 
 				<div className="profile__section">
