@@ -2,66 +2,50 @@ import React, { useEffect, useState } from 'react';
 import { DateCalendar } from '@mui/x-date-pickers';
 import { CalendarLocalizator } from './calendar-localizator.jsx';
 import moment from 'moment';
-
 import './marking-mini-calendar.less';
 import { Badge } from '@mui/material';
 import { PickersDay } from '@mui/x-date-pickers';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
-	const [attendance, setAttendance] = useState([]);
-	const [lastSubscribtionIndex, setLastSubscribtionIndex] = useState(null);
-	const today = moment();
+	const [lastSubscriptionDate, setLastSubscriptionDate] = useState(null);
 
 	useEffect(() => {
-		const temp = [];
-		const startOfMonth = moment().startOf('month');
-		const endOfMonth = moment().endOf('month');
+		if (weekdaysList.length === 0) return; //if visitor got an empty schedule list skip the following
 
-		for (startOfMonth; startOfMonth <= endOfMonth; startOfMonth.add(1, 'day')) {
-			if (weekdaysList.includes(startOfMonth.weekday())) {
-				temp.push(startOfMonth.dayOfYear());
-			}
+		let startDate = moment();
+		let subscriptionCounter = subscription;
+
+		while (subscriptionCounter) {
+			if (weekdaysList.includes(startDate.weekday())) subscriptionCounter--;
+			startDate.add(1, 'day');
 		}
+		setLastSubscriptionDate(startDate);
 
-		let closestAttendanceIndex;
-		if (temp.indexOf(moment().dayOfYear()) >= 0) {
-			closestAttendanceIndex = temp.indexOf(moment().dayOfYear());
-		} else {
-			//if Today is inactive, find closest active date
-			let todayDate = moment();
-			while (!weekdaysList.includes(todayDate.day())) {
-				todayDate.add(1, 'day');
-			}
-			closestAttendanceIndex = temp.indexOf(todayDate.dayOfYear());
-		}
-
-		setAttendance(temp);
-		setLastSubscribtionIndex(closestAttendanceIndex + (subscription - 1));
-	}, [subscription]);
+	}, [subscription, weekdaysList]);
 
 	function DayToRender(props) {
 		const { weekdaysList = [], day, outsideCurrentMonth, ...other } = props;
 
 		const isHighlighted = () => {
-			var state = false;
+			let state = false;
 			weekdaysList.forEach(date => {
 				if (date == props.day.day()) state = true;
 			});
 			return !props.outsideCurrentMonth && state;
 		};
 
-		const badgeCX = { transform: 'translate(-5%, 5%)', fontWeight: '600' };
-		const MarkToRender =
-			(props.day.year() == today.year())
-				?
-				(props.day.dayOfYear() <= attendance[lastSubscribtionIndex]) ?
-					<DoneRoundedIcon sx={{ ...badgeCX, color: 'green', }} /> :
-					<DoneRoundedIcon sx={{ ...badgeCX, color: '#fbba72', }} /> :
+		const MarkingIconTypes = {
+			green: <DoneRoundedIcon sx={
+				{ transform: 'translate(-5%, 5%)', fontWeight: '600', color: 'green', }
+			} />,
+			yellow: <DoneRoundedIcon sx={
+				{ transform: 'translate(-5%, 5%)', fontWeight: '600', color: '#fbba72', }
+			} />,
+		}
 
-				(props.day.year() < today.year()) ?
-					<DoneRoundedIcon sx={{ ...badgeCX, color: 'green', }} /> :
-					<DoneRoundedIcon sx={{ ...badgeCX, color: '#fbba72', }} />;
+		const MarkToRender =
+			props.day.isBefore(lastSubscriptionDate) ? MarkingIconTypes['green'] : MarkingIconTypes['yellow'];
 
 		return (
 			<Badge
@@ -82,12 +66,8 @@ export default function MarkingMiniCalendar({ weekdaysList, subscription }) {
 					value={moment()}
 					views={['day']}
 
-					slots={{
-						day: DayToRender,
-					}}
-					slotProps={{
-						day: { weekdaysList }
-					}}
+					slots={{ day: DayToRender }}
+					slotProps={{ day: { weekdaysList } }}
 				/>
 			</CalendarLocalizator>
 
