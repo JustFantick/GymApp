@@ -32,7 +32,6 @@ export default function Header() {
 		{ text: 'Головна ', isCurrent: true, linkUrl: homePath },
 		{ text: 'Відвідувачі ', isCurrent: false, linkUrl: visitorsPath },
 		{ text: 'Реєстрація ', isCurrent: false, linkUrl: registrationPath },
-		{ text: 'Календар ', isCurrent: false, linkUrl: calendarPath },
 	]);
 
 	function updateNavItems(itemId) {

@@ -7,14 +7,12 @@ import Spinner from '../components/spinner/spinner.jsx';
 const HomePage = lazy(() => import('./HomePage/home.page.jsx'));
 const VisitorsPage = lazy(() => import('./VisitorsPage/visitors.page.jsx'));
 const RegistrationPage = lazy(() => import('./RegistrationPage/registration.page.jsx'));
-const CalendarPage = lazy(() => import('./CalendarPage/calendar.page.jsx'));
 const ProfilePage = lazy(() => import('./ProfilePage/profile.page.jsx'));
 const ErrorPage = lazy(() => import('./ErrorPage/error.page.jsx'));
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
-	registrationPath = "/registration",
-	calendarPath = "/calendar";
+	registrationPath = "/registration";
 
 const fetchProfile = ({ params }) => {
 	return { id: params.userId }
@@ -37,10 +35,6 @@ export const router = createHashRouter([
 			{
 				path: registrationPath,
 				element: <RegistrationPage />,
-			},
-			{
-				path: calendarPath,
-				element: <CalendarPage />
 			},
 			{
 				path: '/profile/:userId',
