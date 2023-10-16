@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { createHashRouter, Outlet } from 'react-router-dom';
 import Header from './header/header.jsx';
 import "../styles/styles.less";
+import Spinner from '../components/spinner/spinner.jsx';
 
 const HomePage = lazy(() => import('./HomePage/home.page.jsx'));
 const VisitorsPage = lazy(() => import('./VisitorsPage/visitors.page.jsx'));
@@ -51,11 +52,21 @@ export const router = createHashRouter([
 ]);
 
 function Layout() {
+	const Loader =
+		<div style={{
+			height: '70vh',
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		}}>
+			<Spinner />
+		</div>;
+
 	return (
 		<div className='wrapper'>
 			<Header></Header>
 
-			<Suspense>
+			<Suspense fallback={Loader}>
 				<Outlet />
 			</Suspense>
 
