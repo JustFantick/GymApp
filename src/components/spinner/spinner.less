@@ -1,0 +1,19 @@
+@import url('../../styles/useful');
+
+.spinner {
+	@size: 70px;
+	height: @size;
+	width: @size;
+
+	border: 5px solid;
+	border-color: @green @green @green transparent;
+	border-radius: 50%;
+
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
