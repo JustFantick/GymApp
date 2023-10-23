@@ -4,6 +4,7 @@ import DateIndicator from '../date-indicator/date-indicator.jsx';
 import moment from 'moment';
 import VisitorCartLink from '../visitor-cart/visitor-cart.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
+import { shallow } from "zustand/shallow";
 import PopupDatePicker from '../popup-date-picker/popup-date-picker.jsx';
 import FloatingAddButton from '../floating-add-btn/floating-add-btn.jsx';
 
@@ -22,10 +23,10 @@ export default function ScheduleTable() {
 		'18:00', '18:30',
 	];
 
-	const visitorsList = useVisitorsStore(state => state.visitors);
-	const todaysVisitors = useVisitorsStore(state => state.todaysVisitors);
-	const setTodaysVisitors = useVisitorsStore(state => state.setTodaysVisitors);
-	const addTodaysVisitor = useVisitorsStore(state => state.addTodaysVisitor);
+	const [visitorsList, todaysVisitors, setTodaysVisitors, addTodaysVisitor] = useVisitorsStore(
+		state => [state.visitors, state.todaysVisitors, state.setTodaysVisitors, state.addTodaysVisitor],
+		shallow
+	)
 
 	const [isTodayDate, setIsTodayDate] = useState(true);
 	const [visitorsToRender, setVisitorsToRender] = useState([]);
