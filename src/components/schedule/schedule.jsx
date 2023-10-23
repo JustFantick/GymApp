@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import './schedule.less';
 import ScheduleDay from './schedule-day.jsx';
-import PopupContainer from '../popup-container/popup-container.jsx';
-import ClockComponent from '../clock-component/clock-component.jsx';
+const PopupContainer = lazy(() => import('../popup-container/popup-container.jsx'));
+const ClockComponent = lazy(() => import('../clock-component/clock-component.jsx'));
 
 export default function Schedule({ schedule, setSchedule }) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -56,15 +56,18 @@ export default function Schedule({ schedule, setSchedule }) {
 
 			</div>
 
-			<PopupContainer isOpen={isPopupOpen} closePopup={() => setIsPopupOpen(false)}>
-				<center>
-					<ClockComponent
-						hour={schedule[scheduleId] && schedule[scheduleId].time}
-						weekday={schedule[scheduleId] && schedule[scheduleId].weekday.full}
-						setTime={setScheduleTime}
-					/>
-				</center>
-			</PopupContainer>
+			<Suspense>
+				<PopupContainer isOpen={isPopupOpen} closePopup={() => setIsPopupOpen(false)}>
+					<center>
+						<ClockComponent
+							hour={schedule[scheduleId] && schedule[scheduleId].time}
+							weekday={schedule[scheduleId] && schedule[scheduleId].weekday.full}
+							setTime={setScheduleTime}
+						/>
+					</center>
+				</PopupContainer>
+
+			</Suspense>
 		</>
 	)
 }

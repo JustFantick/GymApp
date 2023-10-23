@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import './schedule-table.less';
 import DateIndicator from '../date-indicator/date-indicator.jsx';
 import moment from 'moment';
 import VisitorCartLink from '../visitor-cart/visitor-cart.jsx';
 import { useVisitorsStore } from '../../store/visitorStore';
 import { shallow } from "zustand/shallow";
-import PopupDatePicker from '../popup-date-picker/popup-date-picker.jsx';
-import FloatingAddButton from '../floating-add-btn/floating-add-btn.jsx';
-
-import PopupAddVisitor from '../popup-add-visitor/popup-add-visitor.jsx';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+
+const PopupDatePicker = lazy(() => import('../popup-date-picker/popup-date-picker.jsx'));
+const FloatingAddButton = lazy(() => import('../floating-add-btn/floating-add-btn.jsx'));
+const PopupAddVisitor = lazy(() => import('../popup-add-visitor/popup-add-visitor.jsx'));
 
 export default function ScheduleTable() {
 	const [date, setDate] = useState(moment());
@@ -117,25 +117,28 @@ export default function ScheduleTable() {
 
 			</table>
 
-			<PopupDatePicker
-				isOpen={isDatePopupOpen}
-				closePopup={() => setIsDatePopupOpen(false)}
-				dateValue={date}
-				setDate={setDate}
-			/>
+			<Suspense>
+				<PopupDatePicker
+					isOpen={isDatePopupOpen}
+					closePopup={() => setIsDatePopupOpen(false)}
+					dateValue={date}
+					setDate={setDate}
+				/>
 
-			{
-				isTodayDate &&
-				<>
-					<FloatingAddButton onClick={() => setIsAddVisitorPopupOpen(true)} />
+				{
+					isTodayDate &&
+					<>
+						<FloatingAddButton onClick={() => setIsAddVisitorPopupOpen(true)} />
 
-					<PopupAddVisitor
-						isOpen={isAddVisitorPopupOpen}
-						closePopup={() => setIsAddVisitorPopupOpen(false)}
-						addVisitorFunc={addTodaysVisitor}
-					/>
-				</>
-			}
+						<PopupAddVisitor
+							isOpen={isAddVisitorPopupOpen}
+							closePopup={() => setIsAddVisitorPopupOpen(false)}
+							addVisitorFunc={addTodaysVisitor}
+						/>
+					</>
+				}
+
+			</Suspense>
 		</>
 	)
 }

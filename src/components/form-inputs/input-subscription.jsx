@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { InputWrapper } from "./input-wrapper.jsx";
 import QuickIncreaseButton from '../quick-increase-btn/quick-increase-btn.jsx';
-import PopupContainer from "../popup-container/popup-container.jsx";
-import DigitalCounter from "../digital-counter/digital-counter.jsx";
+const PopupContainer = lazy(() => import('../popup-container/popup-container.jsx'));
+const DigitalCounter = lazy(() => import('../digital-counter/digital-counter.jsx'));
 
 export const InputSubscription = ({ subscriptionValue, setSubscription }) => {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -36,15 +36,18 @@ export const InputSubscription = ({ subscriptionValue, setSubscription }) => {
 				</div>
 			</InputWrapper>
 
-			<PopupContainer isOpen={isPopupOpen} closePopup={setIsPopupOpen}>
-				<div style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}>
-					<DigitalCounter value={subscriptionValue} setValue={setSubscription} />
-				</div>
-			</PopupContainer>
+			<Suspense>
+				<PopupContainer isOpen={isPopupOpen} closePopup={setIsPopupOpen}>
+					<div style={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}>
+						<DigitalCounter value={subscriptionValue} setValue={setSubscription} />
+					</div>
+				</PopupContainer>
+
+			</Suspense>
 		</>
 	)
 };
