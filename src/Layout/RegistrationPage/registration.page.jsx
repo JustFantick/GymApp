@@ -12,13 +12,11 @@ import { Toaster, toast } from 'sonner';
 export default function RegistrationPage() {
 	const [name, setName] = useState('');
 	const [isNameValid, setIsNameValid] = useState(true);
-
 	const [subscription, setSubscription] = useState(0);
 
 	const scheduleTemplate = useVisitorsStore(state => state.scheduleTemplate);
-	const [schedule, setSchedule] = useState(scheduleTemplate);
-
 	const addNewVisitor = useVisitorsStore((state) => state.addNewVisitor);
+	const [schedule, setSchedule] = useState(scheduleTemplate);
 
 	function setDefaultStateValues() {
 		setName('');
