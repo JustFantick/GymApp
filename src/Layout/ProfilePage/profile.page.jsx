@@ -8,6 +8,7 @@ import Schedule from '../../components/schedule/schedule.jsx';
 import MarkingMiniCalendar from '../../components/calendar/marking-mini-calendar.jsx';
 import { useLoaderData } from 'react-router-dom';
 import { useVisitorsStore } from '../../store/visitorStore';
+import { shallow } from 'zustand/shallow';
 
 export default function ProfilePage() {
 	const { id } = useLoaderData();
@@ -26,23 +27,19 @@ export default function ProfilePage() {
 		return result;
 	}
 
-	const setVisitorName = useVisitorsStore(state => state.setVisitorName);
-	const setVisitorSubscription = useVisitorsStore(state => state.setVisitorSubscription);
-	const setVisitorSchedule = useVisitorsStore(state => state.setVisitorSchedule);
+	const [setVisitorName, setVisitorSubscription, setVisitorSchedule] = useVisitorsStore(state => [
+		state.setVisitorName, state.setVisitorSubscription, state.setVisitorSchedule
+	], shallow);
 
 	useEffect(() => {
-		if (name != profile.name) setVisitorName(id, name);
-	}, [name]);
-
-
-	useEffect(() => {
-		if (subscription != profile.subscription) setVisitorSubscription(id, subscription);
-	}, [subscription]);
-
-
-	useEffect(() => {
-		if (schedule != profile.schedule) setVisitorSchedule(id, schedule);
-	}, [schedule]);
+		if (name != profile.name) {
+			setVisitorName(id, name);
+		} else if (subscription != profile.subscription) {
+			setVisitorSubscription(id, subscription);
+		} else if (schedule != profile.schedule) {
+			setVisitorSchedule(id, schedule);
+		}
+	}, [name, subscription, schedule]);
 
 	return (
 		<PageContainer>
