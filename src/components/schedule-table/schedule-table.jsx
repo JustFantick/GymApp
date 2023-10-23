@@ -32,24 +32,22 @@ export default function ScheduleTable() {
 	const [visitorsToRender, setVisitorsToRender] = useState([]);
 
 	useEffect(() => {
-		if (date.dayOfYear() != moment().dayOfYear()) {
-			setIsTodayDate(false);
+		if (date.dayOfYear() == moment().dayOfYear()) { setIsTodayDate(true); return };
 
-			const temp = [];
-			visitorsList.forEach(visitorObj => {
-				if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
-					temp.push(visitorObj);
-				}
-			});
-			setVisitorsToRender(temp);
-		} else {
-			setIsTodayDate(true);
-		}
+		setIsTodayDate(false);
+		const temp = [];
+		visitorsList.forEach(visitorObj => {
+			if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
+				temp.push(visitorObj);
+			}
+		});
+		setVisitorsToRender(temp);
+
 	}, [date]);
 
 	useEffect(() => {
+		const temp = [];
 		if (todaysVisitors.length == 0) {
-			const temp = [];
 			visitorsList.forEach(visitorObj => {
 				if (date.day() != 0 && visitorObj.schedule.find(d => date.day() == d.date).isActive) {
 					temp.push({
@@ -59,9 +57,7 @@ export default function ScheduleTable() {
 					});
 				}
 			});
-			setTodaysVisitors(temp);
 		} else {
-			const temp = [];
 			todaysVisitors.forEach(visitorObj => {
 				const visitorFromVisitorsList = visitorsList.find(v => v.id == visitorObj.id);
 
@@ -70,8 +66,9 @@ export default function ScheduleTable() {
 					subscription: visitorFromVisitorsList.subscription,
 				});
 			});
-			setTodaysVisitors(temp);
 		}
+		setTodaysVisitors(temp);
+
 	}, [visitorsList]);
 
 	const [isDatePopupOpen, setIsDatePopupOpen] = useState(false);
