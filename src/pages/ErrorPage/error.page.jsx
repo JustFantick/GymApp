@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../header/header.jsx';
+import Header from '../Header/header.jsx';
 import { wrap } from 'framer-motion';
 
 export default function ErrorPage() {

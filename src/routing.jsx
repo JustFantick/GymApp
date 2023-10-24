@@ -1,14 +1,14 @@
 import React, { lazy, Suspense } from 'react';
 import { createHashRouter, Outlet } from 'react-router-dom';
-import Header from './header/header.jsx';
-import "../styles/styles.less";
-import Spinner from '../components/spinner/spinner.jsx';
+import Header from './pages/Header/header.jsx';
+import "./styles/styles.less";
+import Spinner from './components/spinner/spinner.jsx';
 
-const HomePage = lazy(() => import('./HomePage/home.page.jsx'));
-const VisitorsPage = lazy(() => import('./VisitorsPage/visitors.page.jsx'));
-const RegistrationPage = lazy(() => import('./RegistrationPage/registration.page.jsx'));
-const ProfilePage = lazy(() => import('./ProfilePage/profile.page.jsx'));
-const ErrorPage = lazy(() => import('./ErrorPage/error.page.jsx'));
+const HomePage = lazy(() => import('./pages/HomePage/home.page.jsx'));
+const VisitorsPage = lazy(() => import('./pages/VisitorsPage/visitors.page.jsx'));
+const RegistrationPage = lazy(() => import('./pages/RegistrationPage/registration.page.jsx'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage/profile.page.jsx'));
+const ErrorPage = lazy(() => import('./pages/ErrorPage/error.page.jsx'));
 
 export const homePath = "/",
 	visitorsPath = "/visitors",
