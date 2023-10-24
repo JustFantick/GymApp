@@ -6,7 +6,7 @@ import { MotionMenuBurger } from '../../components/menu-burger/menu-burger.jsx';
 import { MotionNavigation } from '../../components/navigation/navigation.jsx';
 import { burgerAnim, headerTitleAnim, navigationAnim } from '../../motionConsts/motionConsts';
 import { homePath, visitorsPath, registrationPath, calendarPath } from '../../Layout/routing.jsx';
-import { useScrollLock } from '../useScrollLock.jsx';
+import { useScrollLock } from '../../hooks/useScrollLock.jsx';
 
 export default function Header() {
 	const [menuStatus, setMenuStatus] = useState(false);

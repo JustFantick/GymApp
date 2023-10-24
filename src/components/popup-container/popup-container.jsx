@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './popup-container.less';
 import { motion } from 'framer-motion';
-import { useScrollLock } from '../../Layout/useScrollLock.jsx';
+import { useScrollLock } from '../../hooks/useScrollLock.jsx';
 
 export default function PopupContainer({ children, isOpen, closePopup }) {
 	const { lockScroll, unlockScroll } = useScrollLock();

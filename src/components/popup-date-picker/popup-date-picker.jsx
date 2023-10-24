@@ -3,7 +3,7 @@ import './popup-date-picker.less';
 import { motion } from 'framer-motion';
 import { StaticDatePicker } from '@mui/x-date-pickers';
 import { CalendarLocalizator } from '../calendar/calendar-localizator.jsx';
-import { useScrollLock } from '../../Layout/useScrollLock.jsx';
+import { useScrollLock } from '../../hooks/useScrollLock.jsx';
 
 export default function PopupDatePicker({ isOpen, closePopup, dateValue, setDate }) {
 	const { lockScroll, unlockScroll } = useScrollLock();
