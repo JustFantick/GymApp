@@ -52,7 +52,9 @@ export default function PopupAddVisitor({
 	const [slideIndex, setSlideIndex] = useState(0);
 	const slides = [
 		{
-			refObj: clockComponentRef,
+			getHeight: () => {
+				return clockComponentRef.current ? clockComponentRef.current.clientHeight : 0;
+			},
 			block:
 				<div ref={clockComponentRef} className='clock-slide'>
 					<div className="clock-slide__header">
@@ -68,7 +70,16 @@ export default function PopupAddVisitor({
 				</div>,
 		},
 		{
-			refObj: chooseVisitorRef,
+			getHeight: () => {
+				if (!chooseVisitorRef.current) return 0;
+
+				let sum = 20;
+				const children = chooseVisitorRef.current.children;
+				for (const child of children) {
+					sum += child.clientHeight;
+				}
+				return sum;
+			},
 			block:
 				<div className="add-visitor-slide" ref={chooseVisitorRef}>
 					<div
@@ -98,14 +109,14 @@ export default function PopupAddVisitor({
 
 				</div>
 		}
-	]
+	];
 
 	return (
 		<PopupContainer isOpen={isOpen} closePopup={closePopupHandler}>
 			<motion.div
 				style={{ position: 'relative' }}
 				animate={{
-					height: slides[slideIndex].refObj.current && slides[slideIndex].refObj.current.clientHeight,
+					height: slides[slideIndex] && slides[slideIndex].getHeight(),
 				}}
 			>
 				<AnimatePresence>
